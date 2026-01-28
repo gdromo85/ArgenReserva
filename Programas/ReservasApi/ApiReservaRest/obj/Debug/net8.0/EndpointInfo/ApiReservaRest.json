@@ -5,6 +5,41 @@
     "version": "1.0"
   },
   "paths": {
+    "/Complejos": {
+      "get": {
+        "tags": [
+          "Complejos"
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
+    "/Complejo/{id}": {
+      "get": {
+        "tags": [
+          "Complejos"
+        ],
+        "parameters": [
+          {
+            "name": "id",
+            "in": "path",
+            "required": true,
+            "schema": {
+              "type": "integer",
+              "format": "int32"
+            }
+          }
+        ],
+        "responses": {
+          "200": {
+            "description": "OK"
+          }
+        }
+      }
+    },
     "/LeerPerfil/{id}": {
       "get": {
         "tags": [
