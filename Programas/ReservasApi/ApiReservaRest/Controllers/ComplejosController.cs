@@ -18,14 +18,14 @@ namespace ApiReservaRest.Controllers
 
 
         [HttpGet]
-        [Route("Complejos")]
+        [Route("Complejo/TraerTodos/")]
         public async Task<IActionResult> GetComplejos()
         {
             var complejos = await context.Complejos.ToListAsync();
             return Ok(complejos);
         }
 
-        [HttpGet("Complejo/{id}")]
+        [HttpGet("Complejo/Traer/{id}")]
         public async Task<IActionResult> GetComplejo(int id)
         {
             var complejo = await context.Complejos
@@ -35,6 +35,22 @@ namespace ApiReservaRest.Controllers
                 return NotFound();
 
             return Ok(complejo);
+        }
+
+        [HttpPost("Complejo/Agregar")]
+        public async Task<IActionResult> CrearComplejo([FromBody] Complejos complejo)
+        {
+            if (complejo == null)
+                return BadRequest("Datos inválidos");
+
+            context.Complejos.Add(complejo);
+            await context.SaveChangesAsync();
+
+            return CreatedAtAction(
+                nameof(GetComplejo),
+                new { id = complejo.ComplejoID },
+                complejo
+            );
         }
 
         // GET: ComplejosController

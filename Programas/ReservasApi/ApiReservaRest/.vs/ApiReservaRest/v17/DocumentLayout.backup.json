@@ -11,8 +11,24 @@
       "RelativeMoniker": "D:0:0:{A24DC59D-FBA0-4424-A489-801E1F5E3DAB}|ApiReservaRest.csproj|solutionrelative:models\\complejos.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
+      "AbsoluteMoniker": "D:0:0:{A24DC59D-FBA0-4424-A489-801E1F5E3DAB}|ApiReservaRest.csproj|d:\\github\\argenreserva\\programas\\reservasapi\\apireservarest\\apireservarest.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
+      "RelativeMoniker": "D:0:0:{A24DC59D-FBA0-4424-A489-801E1F5E3DAB}|ApiReservaRest.csproj|solutionrelative:apireservarest.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A24DC59D-FBA0-4424-A489-801E1F5E3DAB}|ApiReservaRest.csproj|d:\\github\\argenreserva\\programas\\reservasapi\\apireservarest\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
+      "RelativeMoniker": "D:0:0:{A24DC59D-FBA0-4424-A489-801E1F5E3DAB}|ApiReservaRest.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{A24DC59D-FBA0-4424-A489-801E1F5E3DAB}|ApiReservaRest.csproj|d:\\github\\argenreserva\\programas\\reservasapi\\apireservarest\\program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A24DC59D-FBA0-4424-A489-801E1F5E3DAB}|ApiReservaRest.csproj|solutionrelative:program.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A24DC59D-FBA0-4424-A489-801E1F5E3DAB}|ApiReservaRest.csproj|d:\\github\\argenreserva\\programas\\reservasapi\\apireservarest\\context\\conexionsqlserver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{A24DC59D-FBA0-4424-A489-801E1F5E3DAB}|ApiReservaRest.csproj|solutionrelative:context\\conexionsqlserver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{A24DC59D-FBA0-4424-A489-801E1F5E3DAB}|ApiReservaRest.csproj|d:\\github\\argenreserva\\programas\\reservasapi\\apireservarest\\apireservarest.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|",
+      "RelativeMoniker": "D:0:0:{A24DC59D-FBA0-4424-A489-801E1F5E3DAB}|ApiReservaRest.csproj|solutionrelative:apireservarest.csproj||{04B8AB82-A572-4FEF-95CE-5222444B6B64}|"
     },
     {
       "AbsoluteMoniker": "D:0:0:{A24DC59D-FBA0-4424-A489-801E1F5E3DAB}|ApiReservaRest.csproj|d:\\github\\argenreserva\\programas\\reservasapi\\apireservarest\\apireservarest.csproj||{FA3CD31E-987B-443A-9B81-186104E8DAC1}",
@@ -21,18 +37,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{A24DC59D-FBA0-4424-A489-801E1F5E3DAB}|ApiReservaRest.csproj|d:\\github\\argenreserva\\programas\\reservasapi\\apireservarest\\controllers\\reservaapicontrollers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{A24DC59D-FBA0-4424-A489-801E1F5E3DAB}|ApiReservaRest.csproj|solutionrelative:controllers\\reservaapicontrollers.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A24DC59D-FBA0-4424-A489-801E1F5E3DAB}|ApiReservaRest.csproj|d:\\github\\argenreserva\\programas\\reservasapi\\apireservarest\\appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}",
-      "RelativeMoniker": "D:0:0:{A24DC59D-FBA0-4424-A489-801E1F5E3DAB}|ApiReservaRest.csproj|solutionrelative:appsettings.json||{90A6B3A7-C1A3-4009-A288-E2FF89E96FA0}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A24DC59D-FBA0-4424-A489-801E1F5E3DAB}|ApiReservaRest.csproj|d:\\github\\argenreserva\\programas\\reservasapi\\apireservarest\\context\\conexionsqlserver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{A24DC59D-FBA0-4424-A489-801E1F5E3DAB}|ApiReservaRest.csproj|solutionrelative:context\\conexionsqlserver.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{A24DC59D-FBA0-4424-A489-801E1F5E3DAB}|ApiReservaRest.csproj|d:\\github\\argenreserva\\programas\\reservasapi\\apireservarest\\apireservarest.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}",
-      "RelativeMoniker": "D:0:0:{A24DC59D-FBA0-4424-A489-801E1F5E3DAB}|ApiReservaRest.csproj|solutionrelative:apireservarest.http||{5703B403-55E7-4C63-8C88-A8F52C7A45C5}"
     }
   ],
   "DocumentGroupContainers": [
@@ -42,11 +46,22 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 2,
           "Children": [
             {
               "$type": "Document",
               "DocumentIndex": 6,
+              "Title": "ApiReservaRest",
+              "DocumentMoniker": "D:\\GitHub\\ArgenReserva\\Programas\\ReservasApi\\ApiReservaRest\\ApiReservaRest.csproj",
+              "RelativeDocumentMoniker": "ApiReservaRest.csproj",
+              "ToolTip": "D:\\GitHub\\ArgenReserva\\Programas\\ReservasApi\\ApiReservaRest\\ApiReservaRest.csproj",
+              "RelativeToolTip": "ApiReservaRest.csproj",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000758|",
+              "WhenOpened": "2026-01-28T15:02:31.721Z"
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 5,
               "Title": "ConexionSqlServer.cs",
               "DocumentMoniker": "D:\\GitHub\\ArgenReserva\\Programas\\ReservasApi\\ApiReservaRest\\Context\\ConexionSqlServer.cs",
               "RelativeDocumentMoniker": "Context\\ConexionSqlServer.cs",
@@ -64,7 +79,7 @@
               "RelativeDocumentMoniker": "Controllers\\ComplejosController.cs",
               "ToolTip": "D:\\GitHub\\ArgenReserva\\Programas\\ReservasApi\\ApiReservaRest\\Controllers\\ComplejosController.cs",
               "RelativeToolTip": "Controllers\\ComplejosController.cs",
-              "ViewState": "AgIAAAMAAAAAAAAAAAAAABsAAAAaAAAAAAAAAA==",
+              "ViewState": "AgIAAA0AAAAAAAAAAAAgwCYAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-22T18:34:29.361Z",
               "EditorCaption": ""
@@ -77,26 +92,27 @@
               "RelativeDocumentMoniker": "Models\\Complejos.cs",
               "ToolTip": "D:\\GitHub\\ArgenReserva\\Programas\\ReservasApi\\ApiReservaRest\\Models\\Complejos.cs",
               "RelativeToolTip": "Models\\Complejos.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA8AAAAvAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-01-22T14:05:41.955Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 5,
+              "DocumentIndex": 3,
               "Title": "appsettings.json",
               "DocumentMoniker": "D:\\GitHub\\ArgenReserva\\Programas\\ReservasApi\\ApiReservaRest\\appsettings.json",
               "RelativeDocumentMoniker": "appsettings.json",
               "ToolTip": "D:\\GitHub\\ArgenReserva\\Programas\\ReservasApi\\ApiReservaRest\\appsettings.json",
               "RelativeToolTip": "appsettings.json",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAABAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAIAAAB9AAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.001642|",
-              "WhenOpened": "2026-01-22T13:53:38.312Z"
+              "WhenOpened": "2026-01-22T13:53:38.312Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 7,
               "Title": "ApiReservaRest.csproj",
               "DocumentMoniker": "D:\\GitHub\\ArgenReserva\\Programas\\ReservasApi\\ApiReservaRest\\ApiReservaRest.csproj",
               "RelativeDocumentMoniker": "ApiReservaRest.csproj",
@@ -108,7 +124,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 8,
               "Title": "ReservaApiControllers.cs",
               "DocumentMoniker": "D:\\GitHub\\ArgenReserva\\Programas\\ReservasApi\\ApiReservaRest\\Controllers\\ReservaApiControllers.cs",
               "RelativeDocumentMoniker": "Controllers\\ReservaApiControllers.cs",
@@ -120,7 +136,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 2,
               "Title": "ApiReservaRest.http",
               "DocumentMoniker": "D:\\GitHub\\ArgenReserva\\Programas\\ReservasApi\\ApiReservaRest\\ApiReservaRest.http",
               "RelativeDocumentMoniker": "ApiReservaRest.http",
@@ -128,11 +144,12 @@
               "RelativeToolTip": "ApiReservaRest.http",
               "ViewState": "AgIAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.003502|",
-              "WhenOpened": "2026-01-20T17:09:28.579Z"
+              "WhenOpened": "2026-01-20T17:09:28.579Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 4,
               "Title": "Program.cs",
               "DocumentMoniker": "D:\\GitHub\\ArgenReserva\\Programas\\ReservasApi\\ApiReservaRest\\Program.cs",
               "RelativeDocumentMoniker": "Program.cs",

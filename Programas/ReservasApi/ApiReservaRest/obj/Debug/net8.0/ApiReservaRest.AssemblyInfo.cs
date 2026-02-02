@@ -14,7 +14,7 @@ using System.Reflection;
 [assembly: System.Reflection.AssemblyCompanyAttribute("ApiReservaRest")]
 [assembly: System.Reflection.AssemblyConfigurationAttribute("Debug")]
 [assembly: System.Reflection.AssemblyFileVersionAttribute("1.0.0.0")]
-[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+3c3898f5b30dba60d7c8cdcac2626d2eca9b36bc")]
+[assembly: System.Reflection.AssemblyInformationalVersionAttribute("1.0.0+7847b690f09accd266c5ef8f11d930a9ec670800")]
 [assembly: System.Reflection.AssemblyProductAttribute("ApiReservaRest")]
 [assembly: System.Reflection.AssemblyTitleAttribute("ApiReservaRest")]
 [assembly: System.Reflection.AssemblyVersionAttribute("1.0.0.0")]

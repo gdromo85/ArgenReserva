@@ -1,8 +1,24 @@
 [
   {
     "ContainingType": "ApiReservaRest.Controllers.ComplejosController",
+    "Method": "CrearComplejo",
+    "RelativePath": "Complejo/Agregar",
+    "HttpMethod": "POST",
+    "IsController": true,
+    "Order": 0,
+    "Parameters": [
+      {
+        "Name": "complejo",
+        "Type": "ApiReservaRest.Models.Complejos",
+        "IsRequired": true
+      }
+    ],
+    "ReturnTypes": []
+  },
+  {
+    "ContainingType": "ApiReservaRest.Controllers.ComplejosController",
     "Method": "GetComplejo",
-    "RelativePath": "Complejo/{id}",
+    "RelativePath": "Complejo/Traer/{id}",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,
@@ -18,7 +34,7 @@
   {
     "ContainingType": "ApiReservaRest.Controllers.ComplejosController",
     "Method": "GetComplejos",
-    "RelativePath": "Complejos",
+    "RelativePath": "Complejo/TraerTodos",
     "HttpMethod": "GET",
     "IsController": true,
     "Order": 0,

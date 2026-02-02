@@ -1,0 +1,12 @@
+{
+  "Version": 1,
+  "Hash": "nsTwQTwW+dXhs3+z2l+aTtvVkI/9YmN6xxh8wlcWA2w=",
+  "Source": "ApiReservaRest",
+  "BasePath": "_content/ApiReservaRest",
+  "Mode": "Default",
+  "ManifestType": "Build",
+  "ReferencedProjectsConfiguration": [],
+  "DiscoveryPatterns": [],
+  "Assets": [],
+  "Endpoints": []
+}
