@@ -46,7 +46,7 @@ namespace ApiReservaRes.Modelos
         public int? timestamp { get; set; }
         public int? first_reply_created_at { get; set; }
         public int? unread_count { get; set; }
-        public LastNonActivityMessage last_non_activity_message { get; set; }
+     
         public object priority { get; set; }
         public int? waiting_since { get; set; }
         public object sla_policy_id { get; set; }

@@ -61,5 +61,51 @@ namespace ApiReservaRes.Data
 
 
         }
+
+        public static bool agregarComplejo(Complejos objeto)
+        {
+
+            using (SqlConnection oConexion = new SqlConnection(Conexion.obtenerRutaConexion()))
+            {
+                //   @Telefono Varchar(160),
+                //@Mensaje nvarchar(3000),
+                //@ChatwootInbox Varchar(160)
+                SqlCommand cmd = new SqlCommand("spComplejoIns", oConexion);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                cmd.Parameters.Add(new SqlParameter("@Nombre", objeto.Nombre));            
+                if (objeto.Direccion != "")
+                {
+                    cmd.Parameters.Add(new SqlParameter("@Direccion", objeto.Direccion));
+                }
+                if (objeto.Telefono != "")
+                {
+                    cmd.Parameters.Add(new SqlParameter("@Telefono", objeto.Telefono));
+                }
+                if (objeto.Descripcion != "")
+                {
+                    cmd.Parameters.Add(new SqlParameter("@Descripcion", objeto.Descripcion));
+                }
+
+                cmd.Connection = oConexion;
+
+                try
+                {
+                    oConexion.Open();
+                    cmd.ExecuteNonQuery();
+                    return true;
+
+                }
+                catch (Exception ex)
+                {
+
+                    throw ex;
+                }
+                finally
+                {
+                    oConexion.Close();
+                }
+            }
+        }
     }
 }

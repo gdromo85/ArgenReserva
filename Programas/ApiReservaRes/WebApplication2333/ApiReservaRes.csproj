@@ -295,7 +295,9 @@
     <Compile Include="App_Start\RouteConfig2.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
     <Compile Include="Controllers\ComplejosController.cs" />
+    <Compile Include="Controllers\UsuarioController.cs" />
     <Compile Include="Data\ComplejoDAL.cs" />
+    <Compile Include="Data\UsuarioDAL.cs" />
     <Compile Include="Global.asax.cs">
       <DependentUpon>Global.asax</DependentUpon>
     </Compile>
@@ -306,21 +308,11 @@
     <Compile Include="Models\Complejos.cs" />
     <Compile Include="Models\DatosModem.cs" />
     <Compile Include="Models\DatosExtra.cs" />
-    <Compile Include="Models\ConversacionBody.cs" />
-    <Compile Include="Models\Conversacion.cs" />
-    <Compile Include="Models\MessagesRespuesta.cs" />
-    <Compile Include="Models\ConversacionRespuesta.cs" />
-    <Compile Include="Models\ContactoConvRespuesta.cs" />
-    <Compile Include="Models\InboxesRespuesta.cs" />
-    <Compile Include="Models\InboxRespuesta.cs" />
-    <Compile Include="Models\MensajeEntrada.cs" />
     <Compile Include="Models\ContactoRespuesta.cs" />
     <Compile Include="Models\Contacto.cs" />
-    <Compile Include="Models\BodyLLm.cs" />
     <Compile Include="Models\BodyToken.cs" />
-    <Compile Include="Models\LoggerModificar.cs" />
-    <Compile Include="Models\LoggerCrear.cs" />
     <Compile Include="Models\Input.cs" />
+    <Compile Include="Models\Usuario.cs" />
     <Compile Include="Models\webhook\BodyWebhook.cs" />
     <Compile Include="Models\webhook\RespuestaWebhookId.cs" />
     <Compile Include="Models\webhook\RespuestaWebhook.cs" />
@@ -371,6 +363,7 @@
     <Folder Include="Views\Default\" />
     <Folder Include="Views\ListadoTurnosPacienteEstados\" />
     <Folder Include="Views\Sucursal\" />
+    <Folder Include="Views\Usuario\" />
   </ItemGroup>
   <PropertyGroup>
     <VisualStudioVersion Condition="'$(VisualStudioVersion)' == ''">10.0</VisualStudioVersion>

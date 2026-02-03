@@ -12,6 +12,11 @@ using System.Net;
 using System.Web.Services.Description;
 using System.Linq;
 using ApiReservaRes.Data;
+using Microsoft.AspNetCore.Mvc;
+using HttpPostAttribute = System.Web.Http.HttpPostAttribute;
+using RouteAttribute = System.Web.Http.RouteAttribute;
+using FromBodyAttribute = System.Web.Http.FromBodyAttribute;
+using HttpGetAttribute = System.Web.Http.HttpGetAttribute;
 
 
 namespace ApiReservaRes.Controllers
@@ -39,7 +44,7 @@ namespace ApiReservaRes.Controllers
 
         [HttpGet]
         [Route("api/complejo/listado")]
-        public IHttpActionResult HolaMundo()
+        public IHttpActionResult traerComplejos()
         {
 
             try
@@ -53,6 +58,19 @@ namespace ApiReservaRes.Controllers
             }
         }
 
+        [HttpPost]
+        [Route("api/Complejo/Agregar")]
+        public async Task<bool> CrearComplejo([FromBody] Complejos complejo)
+        {
+            if (complejo == null)
+            {
+                return false;
+            }
+
+            return ComplejoDAL.agregarComplejo(complejo);
+           
+         
+        }
 
     }
 }

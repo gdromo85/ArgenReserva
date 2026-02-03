@@ -10,7 +10,7 @@ namespace ApiReservaRes.Modelos
 
         //public BodyLLm llm { get; set; }
      
-        public List<Llm> llm { get; set; }
+      
         public string estado { get; set; }
         public DateTime creado { get; set; }
         public string nombreWorflow { get; set; }
