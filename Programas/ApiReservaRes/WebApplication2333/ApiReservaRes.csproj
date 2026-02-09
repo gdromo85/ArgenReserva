@@ -308,8 +308,6 @@
     <Compile Include="Models\Complejos.cs" />
     <Compile Include="Models\DatosModem.cs" />
     <Compile Include="Models\DatosExtra.cs" />
-    <Compile Include="Models\ContactoRespuesta.cs" />
-    <Compile Include="Models\Contacto.cs" />
     <Compile Include="Models\BodyToken.cs" />
     <Compile Include="Models\Input.cs" />
     <Compile Include="Models\Usuario.cs" />

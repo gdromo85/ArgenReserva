@@ -26,7 +26,7 @@ namespace ApiReservaRes.Modelos
         public int? last_activity_at { get; set; }
         public int? created_at { get; set; }
         public List<ContactInbox> contact_inboxes { get; set; }
-        public Contact contact { get; set; }
+ 
         public ContactInbox contact_inbox { get; set; }
 
         public Meta meta { get; set; }
