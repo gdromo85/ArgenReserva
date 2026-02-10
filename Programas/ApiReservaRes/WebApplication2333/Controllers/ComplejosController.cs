@@ -60,7 +60,7 @@ namespace ApiReservaRes.Controllers
 
         [HttpPost]
         [Route("api/Complejo/Agregar")]
-        public async Task<bool> CrearComplejo([FromBody] Complejos complejo)
+        public async Task<bool> crearComplejo([FromBody] Complejos complejo)
         {
             if (complejo == null)
             {
@@ -72,5 +72,18 @@ namespace ApiReservaRes.Controllers
          
         }
 
+        [HttpPost]
+        [Route("api/Complejo/Editar")]
+        public async Task<bool> editarComplejo([FromBody] Complejos complejo)
+        {
+            if (complejo == null)
+            {
+                return false;
+            }
+
+            return ComplejoDAL.editarComplejo(complejo);
+
+
+        }
     }
 }

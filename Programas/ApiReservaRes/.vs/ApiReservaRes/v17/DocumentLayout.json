@@ -3,11 +3,15 @@
   "WorkspaceRootPath": "D:\\GitHub\\ArgenReserva\\Programas\\ApiReservaRes\\",
   "Documents": [
     {
+      "AbsoluteMoniker": "D:0:0:{1139920E-3F05-4FDE-9F64-1C449F3C2446}|WebApplication2333\\ApiReservaRes.csproj|d:\\github\\argenreserva\\programas\\apireservares\\webapplication2333\\controllers\\complejoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1139920E-3F05-4FDE-9F64-1C449F3C2446}|WebApplication2333\\ApiReservaRes.csproj|solutionrelative:webapplication2333\\controllers\\complejoscontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
       "AbsoluteMoniker": "D:0:0:{1139920E-3F05-4FDE-9F64-1C449F3C2446}|WebApplication2333\\ApiReservaRes.csproj|d:\\github\\argenreserva\\programas\\apireservares\\webapplication2333\\data\\complejodal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1139920E-3F05-4FDE-9F64-1C449F3C2446}|WebApplication2333\\ApiReservaRes.csproj|solutionrelative:webapplication2333\\data\\complejodal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1139920E-3F05-4FDE-9F64-1C449F3C2446}|WebApplication2333\\ApiReservaRes.csproj|d:\\github\\argenreserva\\programas\\apireservares\\webapplication2333\\data\\usuariodal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{1139920E-3F05-4FDE-9F64-1C449F3C2446}|WebApplication2333\\ApiReservaRes.csproj|D:\\GitHub\\ArgenReserva\\Programas\\ApiReservaRes\\webapplication2333\\data\\usuariodal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1139920E-3F05-4FDE-9F64-1C449F3C2446}|WebApplication2333\\ApiReservaRes.csproj|solutionrelative:webapplication2333\\data\\usuariodal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     }
   ],
@@ -18,11 +22,24 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 1,
+          "SelectedChildIndex": 0,
           "Children": [
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
+              "Title": "ComplejosController.cs",
+              "DocumentMoniker": "D:\\GitHub\\ArgenReserva\\Programas\\ApiReservaRes\\WebApplication2333\\Controllers\\ComplejosController.cs",
+              "RelativeDocumentMoniker": "WebApplication2333\\Controllers\\ComplejosController.cs",
+              "ToolTip": "D:\\GitHub\\ArgenReserva\\Programas\\ApiReservaRes\\WebApplication2333\\Controllers\\ComplejosController.cs",
+              "RelativeToolTip": "WebApplication2333\\Controllers\\ComplejosController.cs",
+              "ViewState": "AgIAADgAAAAAAAAAAAAowFMAAAAtAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-02-10T12:21:11.409Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 2,
               "Title": "UsuarioDAL.cs",
               "DocumentMoniker": "D:\\GitHub\\ArgenReserva\\Programas\\ApiReservaRes\\WebApplication2333\\Data\\UsuarioDAL.cs",
               "RelativeDocumentMoniker": "WebApplication2333\\Data\\UsuarioDAL.cs",
@@ -30,18 +47,17 @@
               "RelativeToolTip": "WebApplication2333\\Data\\UsuarioDAL.cs",
               "ViewState": "AgIAAAMAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-02-09T18:39:31.906Z",
-              "EditorCaption": ""
+              "WhenOpened": "2026-02-09T18:39:31.906Z"
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "ComplejoDAL.cs",
               "DocumentMoniker": "D:\\GitHub\\ArgenReserva\\Programas\\ApiReservaRes\\WebApplication2333\\Data\\ComplejoDAL.cs",
               "RelativeDocumentMoniker": "WebApplication2333\\Data\\ComplejoDAL.cs",
               "ToolTip": "D:\\GitHub\\ArgenReserva\\Programas\\ApiReservaRes\\WebApplication2333\\Data\\ComplejoDAL.cs",
               "RelativeToolTip": "WebApplication2333\\Data\\ComplejoDAL.cs",
-              "ViewState": "AgIAAGIAAAAAAAAAAAAAwHYAAAA+AAAAAAAAAA==",
+              "ViewState": "AgIAAFkAAAAAAAAAAAAwwG4AAAAbAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-02-09T18:39:21.851Z",
               "EditorCaption": ""
