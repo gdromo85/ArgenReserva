@@ -294,8 +294,11 @@
     <Compile Include="App_Start\RouteConfig.cs" />
     <Compile Include="App_Start\RouteConfig2.cs" />
     <Compile Include="App_Start\WebApiConfig.cs" />
+    <Compile Include="Controllers\CabanaController.cs" />
     <Compile Include="Controllers\ComplejosController.cs" />
     <Compile Include="Controllers\UsuarioController.cs" />
+    <Compile Include="Data\CabanaDAL.cs" />
+    <Compile Include="Data\ClienteDAL.cs" />
     <Compile Include="Data\ComplejoDAL.cs" />
     <Compile Include="Data\UsuarioDAL.cs" />
     <Compile Include="Global.asax.cs">
@@ -305,6 +308,8 @@
     <Compile Include="heplers\ExpandoObjectExtensions.cs" />
     <Compile Include="heplers\ExpandoObjectHelper.cs" />
     <Compile Include="heplers\Funciones.cs" />
+    <Compile Include="Models\Cabana.cs" />
+    <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\Complejos.cs" />
     <Compile Include="Models\DatosModem.cs" />
     <Compile Include="Models\DatosExtra.cs" />
@@ -357,6 +362,7 @@
   </ItemGroup>
   <ItemGroup>
     <Folder Include="App_Data\" />
+    <Folder Include="Views\Cabana\" />
     <Folder Include="Views\Complejos\" />
     <Folder Include="Views\Default\" />
     <Folder Include="Views\ListadoTurnosPacienteEstados\" />
