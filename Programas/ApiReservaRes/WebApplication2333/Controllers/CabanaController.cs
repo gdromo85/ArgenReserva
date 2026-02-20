@@ -16,7 +16,7 @@ namespace ApiReservaRes.Controllers
     {
         [HttpGet]
         [Route("api/Cabana/traerTodos/{complejoId}")]
-        public IHttpActionResult traerUsuario(int complejoId)
+        public IHttpActionResult traerCabana(int complejoId)
         {
 
             try
