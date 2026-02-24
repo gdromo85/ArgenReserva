@@ -1,6 +1,7 @@
 import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import { getApiUrl } from "../utils/api";
+import axios from "axios";
 import "../styles/colors.css";
 
 interface FormData {
@@ -134,12 +135,20 @@ function Login() {
     setErrors(prev => ({ ...prev, general: "" }));
 
     try {
-      // Simular llamada a API
-      await new Promise(resolve => setTimeout(resolve, 1500));
+      const respuesta = await axios.post(`${getApiUrl()}api/Usuario/validarUsuario`, {
+          nombre: formData.email,
+          passwordHash: formData.password
+        })
+
+      console.log("🚀 ~ handleSubmit ~ respuesta.status:", respuesta.status)
+      console.log("🚀 ~ handleSubmit ~ respuesta:", respuesta)
+
       
       // Aquí iría la lógica real de autenticación
       // Por ahora simularemos un error de credenciales inválidas
-      const isValidCredentials = formData.email === "usuarioprueba" && formData.password === "123456";
+      
+      let isValidCredentials = false;
+      if (respuesta.status === 200) isValidCredentials = true
       
       if (!isValidCredentials) {
         setErrors(prev => ({
@@ -147,16 +156,13 @@ function Login() {
           general: "Credenciales inválidas. Verifique su usuario y contraseña."
         }));
       } else {
-        // Login exitoso
-        //console.log("Login exitoso:", formData);
-        //alert("¡Login exitoso!");
-        navigate("/panel");
+        navigate("/panel", { state: { usuario: respuesta.data } });
       }
     } catch (error) {
       console.log("🚀 ~ handleSubmit ~ error:", error)
       setErrors(prev => ({
         ...prev,
-        general: "Error de conexión. Por favor intente nuevamente."
+        general: "Credenciales inválidas. Verifique su usuario y contraseña."
       }));
     } finally {
       setIsLoading(false);

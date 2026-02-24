@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Web.Http;
 using System.Web.Http.Cors;
+using System.Net.Http.Formatting;
 
 namespace ApiReservaRes
 {
@@ -10,10 +11,9 @@ namespace ApiReservaRes
     {
         public static void Register(HttpConfiguration config)
         {
-            // Configuración y servicios de API web
             var cors = new EnableCorsAttribute("*", "*", "*");
             config.EnableCors(cors);
-            // Rutas de API web
+
             config.MapHttpAttributeRoutes();
 
             config.Routes.MapHttpRoute(
@@ -21,6 +21,9 @@ namespace ApiReservaRes
                 routeTemplate: "api/{controller}/{id}",
                 defaults: new { id = RouteParameter.Optional }
             );
+
+            config.Formatters.JsonFormatter.SerializerSettings.ReferenceLoopHandling = Newtonsoft.Json.ReferenceLoopHandling.Ignore;
+            config.Formatters.Remove(config.Formatters.XmlFormatter);
         }
     }
 }

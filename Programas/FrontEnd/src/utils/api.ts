@@ -1,7 +1,7 @@
 
 
 const getApiUrl = (): string => {
-  return import.meta.env.VITE_API_URL || "https://padron.325160.xyz";
+  return (window as any).API_URL || import.meta.env.VITE_API_URL || "https://padron.325160.xyz";
 };
 
 const fetchData = async <T>(
