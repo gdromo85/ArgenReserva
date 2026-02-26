@@ -2,6 +2,7 @@ import React, { useState } from "react";
 import { useNavigate } from "react-router";
 import { getApiUrl } from "../utils/api";
 import axios from "axios";
+import { useAuth } from "../context/AuthContext";
 import "../styles/colors.css";
 
 interface FormData {
@@ -16,10 +17,8 @@ interface FormErrors {
 }
 
 function Login() {
-  console.log('Inicio')
-  console.log(getApiUrl())
-  console.log(import.meta.env.VITE_API_URL)
   const navigate = useNavigate();
+  const { login } = useAuth();
   const [formData, setFormData] = useState<FormData>({
     email: "",
     password: ""
@@ -140,8 +139,8 @@ function Login() {
           passwordHash: formData.password
         })
 
-      console.log("🚀 ~ handleSubmit ~ respuesta.status:", respuesta.status)
-      console.log("🚀 ~ handleSubmit ~ respuesta:", respuesta)
+      //console.log("🚀 ~ handleSubmit ~ respuesta.status:", respuesta.status)
+      //console.log("🚀 ~ handleSubmit ~ respuesta:", respuesta)
 
       
       // Aquí iría la lógica real de autenticación
@@ -156,7 +155,8 @@ function Login() {
           general: "Credenciales inválidas. Verifique su usuario y contraseña."
         }));
       } else {
-        navigate("/panel", { state: { usuario: respuesta.data } });
+        login(respuesta.data);
+        navigate("/panel");
       }
     } catch (error) {
       console.log("🚀 ~ handleSubmit ~ error:", error)

@@ -49,6 +49,14 @@ export interface listDniDuplicadosExportar {
   
 }
 
+export interface Usuario {
+  usuarioID: number;
+  nombre: string;
+  email: string;
+  activo: boolean;
+  passwordHash: string;
+}
+
 export interface ControlPaso1 {
   respuesta: string;
   afiliadosBaja: number;
