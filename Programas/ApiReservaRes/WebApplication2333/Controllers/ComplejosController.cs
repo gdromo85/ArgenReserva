@@ -64,7 +64,8 @@ namespace ApiReservaRes.Controllers
         {
             if (complejo == null)
             {
-                return false;
+                var comple = ComplejoDAL.agregarComplejo(complejo);
+                return Ok(comple);
             }
 
             return ComplejoDAL.agregarComplejo(complejo);
@@ -84,6 +85,22 @@ namespace ApiReservaRes.Controllers
             return ComplejoDAL.editarComplejo(complejo);
 
 
+        }
+
+        [HttpGet]
+        [Route("api/Complejo/Eliminar/{complejoId}")]
+        public IHttpActionResult eliminarComplejo(int complejoId)
+        {
+
+            try
+            {
+                Boolean ban = ComplejoDAL.eliminarComplejo(complejoId);
+                return Ok(ban);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
         }
     }
 }

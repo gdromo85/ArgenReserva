@@ -1,4 +1,4 @@
-create procedure spComplejoIns
+alter procedure spComplejoIns
 	@Nombre			 varchar(500),
 	@Descripcion	 varchar(500),
 	@Telefono	     varchar(500),
@@ -15,6 +15,9 @@ as
       if (@intError <> 0) goto onError
       select @@Identity
   
+   -- DEVUELVE EL ID INSERTADO
+    SELECT SCOPE_IDENTITY() AS ComplejoId
+
 	commit transaction
 	return @intError
 

@@ -5,8 +5,8 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
 -->
 <Project>
   <PropertyGroup>
-    <_PublishTargetUrl>C:\Users\Usuario\OneDrive\Desktop\WebSite</_PublishTargetUrl>
-    <History>True|2026-02-20T18:44:47.6405536Z||;</History>
+    <_PublishTargetUrl>C:\Users\Usuario\OneDrive\Desktop\WebSite2</_PublishTargetUrl>
+    <History>True|2026-02-26T18:48:46.5696842Z||;True|2026-02-26T15:48:25.4467718-03:00||;True|2026-02-26T14:59:31.8383526-03:00||;True|2026-02-20T15:44:47.6405536-03:00||;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
@@ -17,10 +17,10 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>09/10/2013 13:29:20</publishTime>
     </File>
     <File Include="bin/ApiConexionIA.dll">
-      <publishTime>02/20/2026 15:44:47</publishTime>
+      <publishTime>02/26/2026 15:48:46</publishTime>
     </File>
     <File Include="bin/ApiConexionIA.pdb">
-      <publishTime>02/20/2026 15:44:47</publishTime>
+      <publishTime>02/26/2026 15:48:46</publishTime>
     </File>
     <File Include="bin/es/System.Net.Http.Formatting.resources.dll">
       <publishTime>10/20/2023 17:35:08</publishTime>
