@@ -60,12 +60,12 @@ namespace ApiReservaRes.Controllers
 
         [HttpPost]
         [Route("api/Complejo/Agregar")]
-        public async Task<bool> crearComplejo([FromBody] Complejos complejo)
+        public Complejos crearComplejo([FromBody] Complejos complejo)
         {
             if (complejo == null)
             {
-                var comple = ComplejoDAL.agregarComplejo(complejo);
-                return Ok(comple);
+                return  null;
+               
             }
 
             return ComplejoDAL.agregarComplejo(complejo);
@@ -75,11 +75,11 @@ namespace ApiReservaRes.Controllers
 
         [HttpPost]
         [Route("api/Complejo/Editar")]
-        public async Task<bool> editarComplejo([FromBody] Complejos complejo)
+        public Complejos editarComplejo([FromBody] Complejos complejo)
         {
             if (complejo == null)
             {
-                return false;
+                return null;
             }
 
             return ComplejoDAL.editarComplejo(complejo);
@@ -88,14 +88,31 @@ namespace ApiReservaRes.Controllers
         }
 
         [HttpGet]
-        [Route("api/Complejo/Eliminar/{complejoId}")]
-        public IHttpActionResult eliminarComplejo(int complejoId)
+        [Route("api/Complejo/eliminar/{complejoId}")]
+        public IHttpActionResult EliminarComplejo(int complejoId)
         {
 
             try
             {
                 Boolean ban = ComplejoDAL.eliminarComplejo(complejoId);
                 return Ok(ban);
+            }
+            catch (Exception ex)
+            {
+                return InternalServerError(ex);
+            }
+        }
+
+
+        [HttpGet]
+        [Route("api/Complejo/traerComplejoXUsuario/{usuarioId}")]
+        public IHttpActionResult traerComplejoXUsuario(int usuarioId)
+        {
+
+            try
+            {
+                var complejos = ComplejoDAL.traerComplejosUsuario(usuarioId);
+                return Ok(complejos);
             }
             catch (Exception ex)
             {

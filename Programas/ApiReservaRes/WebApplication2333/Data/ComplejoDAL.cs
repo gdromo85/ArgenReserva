@@ -167,7 +167,7 @@ namespace ApiReservaRes.Data
             }
         }
 
-        public static bool editarComplejo(Complejos objeto)
+        public static Complejos editarComplejo(Complejos objeto)
         {
 
             using (SqlConnection oConexion = new SqlConnection(Conexion.obtenerRutaConexion()))
@@ -199,7 +199,7 @@ namespace ApiReservaRes.Data
                 {
                     oConexion.Open();
                     cmd.ExecuteNonQuery();
-                    return true;
+                    return traerComplejo(objeto.ComplejoID);
 
                 }
                 catch (Exception ex)
@@ -255,5 +255,63 @@ namespace ApiReservaRes.Data
 
 
         }
+
+        public static List<Complejos> traerComplejosUsuario(int usuarioId)
+        {
+            //string respuesta = string.Empty;
+            var listObjeto = new List<Complejos>();
+
+
+            using (SqlConnection oConexion = new SqlConnection(Conexion.obtenerRutaConexion()))
+            {
+                SqlCommand cmd = new SqlCommand("spComplejoXUsuarioSel", oConexion);
+                cmd.CommandType = CommandType.StoredProcedure;
+
+                if (usuarioId > 0)
+                {
+                    cmd.Parameters.AddWithValue("@UsuarioID", usuarioId);
+                }
+
+                //cmd.Parameters.AddWithValue("@Cliente", datos.cliente);
+
+                cmd.Connection = oConexion;
+                try
+                {
+                    oConexion.Open();
+                    //cmd.ExecuteNonQuery();
+
+                    using (SqlDataReader dr = cmd.ExecuteReader())
+                    {
+
+                        while (dr.Read())
+                        {
+                            Complejos objeto = new Complejos();
+                            objeto.ComplejoID = Convert.ToInt32(dr["ComplejoID"]);
+                            if (dr["Nombre"] != DBNull.Value) objeto.Nombre = dr["Nombre"].ToString();
+                            if (dr["Direccion"] != DBNull.Value) objeto.Direccion = dr["Direccion"].ToString();
+                            if (dr["Telefono"] != DBNull.Value) objeto.Telefono = dr["Telefono"].ToString();
+                            if (dr["Descripcion"] != DBNull.Value) objeto.Descripcion = dr["Descripcion"].ToString();
+                            listObjeto.Add(objeto);
+
+                        }
+
+                    }
+                    return listObjeto;
+                }
+                catch (Exception ex)
+                {
+                    Console.WriteLine(ex);
+                    Console.WriteLine("Error");
+                    throw ex;
+                }
+                finally
+                {
+                    oConexion.Close();
+                }
+            }
+
+
+        }
+
     }
 }
