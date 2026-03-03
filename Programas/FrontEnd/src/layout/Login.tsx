@@ -290,8 +290,8 @@ function Login() {
         {/* Información de prueba */}
         <div className="mt-6 p-4 bg-blue-50 rounded-md border border-blue-200">
           <h3 className="text-sm font-medium text-blue-800 mb-2">Credenciales de prueba:</h3>
-          <p className="text-xs text-blue-700">Usuario: usuarioprueba</p>
-          <p className="text-xs text-blue-700">Contraseña: 123456</p>
+          <p className="text-xs text-blue-700">Usuario: prueba</p>
+          <p className="text-xs text-blue-700">Contraseña: prueba</p>
         </div>
       </div>
     </div>

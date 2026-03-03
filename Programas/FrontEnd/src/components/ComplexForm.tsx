@@ -14,11 +14,12 @@ const ComplexForm: React.FC<ComplexFormProps> = ({
   onCancel,
   isLoading 
 }) => {
+  console.log("🚀 ~ ComplexForm ~ initialData:", initialData)
   const [formData, setFormData] = useState<Complejo>({
-    nombre: "",
-    direccion: "",
-    telefono: "",
-    descripcion: ""
+    Nombre: "",
+    Direccion: "",
+    Telefono: "",
+    Descripcion: ""
   });
   const [errors, setErrors] = useState<Partial<Complejo>>({});
 
@@ -31,14 +32,14 @@ const ComplexForm: React.FC<ComplexFormProps> = ({
   const validate = (): boolean => {
     const newErrors: Partial<Complejo> = {};
     
-    if (!formData.nombre.trim()) {
-      newErrors.nombre = "El nombre es requerido";
+    if (!formData.Nombre.trim()) {
+      newErrors.Nombre = "El nombre es requerido";
     }
-    if (!formData.direccion.trim()) {
-      newErrors.direccion = "La dirección es requerida";
+    if (!formData.Direccion.trim()) {
+      newErrors.Direccion = "La dirección es requerida";
     }
-    if (!formData.telefono.trim()) {
-      newErrors.telefono = "El teléfono es requerido";
+    if (!formData.Telefono.trim()) {
+      newErrors.Telefono = "El teléfono es requerido";
     }
     
     setErrors(newErrors);
@@ -68,18 +69,18 @@ const ComplexForm: React.FC<ComplexFormProps> = ({
         </label>
         <input
           type="text"
-          name="nombre"
-          value={formData.nombre}
+          name="Nombre"
+          value={formData.Nombre}
           onChange={handleChange}
           className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 ${
-            errors.nombre 
+            errors.Nombre 
               ? "border-red-500 focus:ring-red-500" 
               : "border-gray-300 focus:ring-indigo-500"
           }`}
           placeholder="Nombre del complejo"
         />
-        {errors.nombre && (
-          <p className="mt-1 text-sm text-red-600">{errors.nombre}</p>
+        {errors.Nombre && (
+          <p className="mt-1 text-sm text-red-600">{errors.Nombre}</p>
         )}
       </div>
 
@@ -89,18 +90,18 @@ const ComplexForm: React.FC<ComplexFormProps> = ({
         </label>
         <input
           type="text"
-          name="direccion"
-          value={formData.direccion}
+          name="Direccion"
+          value={formData.Direccion}
           onChange={handleChange}
           className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 ${
-            errors.direccion 
+            errors.Direccion 
               ? "border-red-500 focus:ring-red-500" 
               : "border-gray-300 focus:ring-indigo-500"
           }`}
           placeholder="Dirección del complejo"
         />
-        {errors.direccion && (
-          <p className="mt-1 text-sm text-red-600">{errors.direccion}</p>
+        {errors.Direccion && (
+          <p className="mt-1 text-sm text-red-600">{errors.Direccion}</p>
         )}
       </div>
 
@@ -110,18 +111,18 @@ const ComplexForm: React.FC<ComplexFormProps> = ({
         </label>
         <input
           type="text"
-          name="telefono"
-          value={formData.telefono}
+          name="Telefono"
+          value={formData.Telefono}
           onChange={handleChange}
           className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 ${
-            errors.telefono 
+            errors.Telefono 
               ? "border-red-500 focus:ring-red-500" 
               : "border-gray-300 focus:ring-indigo-500"
           }`}
           placeholder="Teléfono de contacto"
         />
-        {errors.telefono && (
-          <p className="mt-1 text-sm text-red-600">{errors.telefono}</p>
+        {errors.Telefono && (
+          <p className="mt-1 text-sm text-red-600">{errors.Telefono}</p>
         )}
       </div>
 
@@ -130,8 +131,8 @@ const ComplexForm: React.FC<ComplexFormProps> = ({
           Descripción
         </label>
         <textarea
-          name="descripcion"
-          value={formData.descripcion}
+          name="Descripcion"
+          value={formData.Descripcion}
           onChange={handleChange}
           rows={3}
           className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"

@@ -1,15 +1,17 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import { Complejo } from "../types/Complejo";
-import { getComplejos, createComplejo, updateComplejo, deleteComplejo } from "../api/complejos";
+import { getComplejos, createComplejo, updateComplejo, deleteComplejo, getComplejoByUsuario } from "../api/complejos";
 
 interface ComplejosContextType {
   complejos: Complejo[];
+  complejosXUsuario: Complejo[];
   loading: boolean;
   error: string | null;
   fetchComplejos: () => Promise<void>;
   addComplejo: (complejo: Complejo) => Promise<void>;
   editComplejo: (id: number, complejo: Complejo) => Promise<void>;
   removeComplejo: (id: number) => Promise<void>;
+  fetchComplejosXUsuario: (usuario: number) => Promise<void>;
 }
 
 const ComplejosContext = createContext<ComplejosContextType | undefined>(undefined);
@@ -20,6 +22,7 @@ interface ComplejosProviderProps {
 
 export const ComplejosProvider: React.FC<ComplejosProviderProps> = ({ children }) => {
   const [complejos, setComplejos] = useState<Complejo[]>([]);
+  const [complejosXUsuario, setComplejosXUsuario] = useState<Complejo[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
@@ -29,6 +32,20 @@ export const ComplejosProvider: React.FC<ComplejosProviderProps> = ({ children }
     try {
       const data = await getComplejos();
       setComplejos(data);
+    } catch (err) {
+      setError("Error al cargar los complejos");
+      console.error(err);
+    } finally {
+      setLoading(false);
+    }
+  };
+
+  const fetchComplejosXUsuario = async (usuario: number) => {
+    setLoading(true);
+    setError(null);
+    try {
+      const data = await getComplejoByUsuario(usuario);
+      setComplejosXUsuario(data);
     } catch (err) {
       setError("Error al cargar los complejos");
       console.error(err);
@@ -89,12 +106,14 @@ export const ComplejosProvider: React.FC<ComplejosProviderProps> = ({ children }
   return (
     <ComplejosContext.Provider value={{
       complejos,
+      complejosXUsuario,
       loading,
       error,
       fetchComplejos,
       addComplejo,
       editComplejo,
-      removeComplejo
+      removeComplejo,
+      fetchComplejosXUsuario
     }}>
       {children}
     </ComplejosContext.Provider>
