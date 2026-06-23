@@ -100,7 +100,7 @@ namespace ApiReservaRes.Data
 
                         while (dr.Read())
                         {
-                            ;
+                            
                             objeto.usuarioID = Convert.ToInt32(dr["UsuarioID"]);
                             if (dr["Nombre"] != DBNull.Value) objeto.nombre = dr["Nombre"].ToString();
                             if (dr["Email"] != DBNull.Value) objeto.email = dr["Email"].ToString();
