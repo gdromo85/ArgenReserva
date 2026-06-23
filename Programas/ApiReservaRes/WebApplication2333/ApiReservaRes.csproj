@@ -308,6 +308,7 @@
     <Compile Include="heplers\ExpandoObjectExtensions.cs" />
     <Compile Include="heplers\ExpandoObjectHelper.cs" />
     <Compile Include="heplers\Funciones.cs" />
+    <Compile Include="Models\Inquilino.cs" />
     <Compile Include="Models\UnidadAlojamiento.cs" />
     <Compile Include="Models\Cliente.cs" />
     <Compile Include="Models\Complejos.cs" />
