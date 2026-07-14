@@ -55,6 +55,16 @@ function Panel() {
               >
                 Complejos
               </Link>
+              <Link
+                to="/panel/reservas"
+                className={`px-3 py-2 rounded-md text-sm font-medium transition-colors ${
+                  location.pathname === "/panel/reservas"
+                    ? "bg-indigo-700 text-white"
+                    : "text-indigo-100 hover:bg-indigo-500"
+                }`}
+              >
+                Reservas
+              </Link>
             </div>
 
             {/* Usuario y Logout */}

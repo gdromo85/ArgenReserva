@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Complejo } from "../types/Complejo";
 
 interface ComplexCardProps {
@@ -67,6 +68,15 @@ const ComplexCard: React.FC<ComplexCardProps> = ({ complejo, onEdit, onDelete })
             <span className="text-gray-600">{complejo.Descripcion}</span>
           </div>
         )}
+      </div>
+
+      <div className="mt-4 pt-4 border-t border-gray-100">
+        <Link
+          to={`/panel/complejos/${complejo.ComplejoID}/unidades`}
+          className="text-sm font-medium text-indigo-600 hover:text-indigo-800"
+        >
+          Ver Unidades de Alojamiento →
+        </Link>
       </div>
     </div>
   );

@@ -47,6 +47,7 @@ namespace ApiReservaRes.Data
                             if (dr["Nombre"] != DBNull.Value) objeto.nombre = dr["Nombre"].ToString();
                             objeto.capacidad = Convert.ToInt32(dr["Capacidad"]);
                             if (dr["Descripcion"] != DBNull.Value) objeto.descripcion = dr["Descripcion"].ToString();
+                            if (dr["Precio"] != DBNull.Value) objeto.precio = Convert.ToDecimal(dr["Precio"]);
 
 
                             listObjeto.Add(objeto);
@@ -100,6 +101,7 @@ namespace ApiReservaRes.Data
                             if (dr["Nombre"] != DBNull.Value) objeto.nombre = dr["Nombre"].ToString();
                             objeto.capacidad = Convert.ToInt32(dr["Capacidad"]);
                             if (dr["Descripcion"] != DBNull.Value) objeto.descripcion = dr["Descripcion"].ToString();
+                            if (dr["Precio"] != DBNull.Value) objeto.precio = Convert.ToDecimal(dr["Precio"]);
 
 
                         }
