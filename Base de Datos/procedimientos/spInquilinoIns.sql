@@ -1,10 +1,10 @@
 -- spInquilinoIns
-create procedure spInquilinoIns
+alter procedure spInquilinoIns
 	@nombre        varchar(200),
 	@Apellido      varchar(200),
-	@direccion     varchar(500),
+	@direccion     varchar(500)= null, 
 	@telefono      varchar(160),
-	@descripcion   varchar(500)
+	@descripcion   varchar(500)= null
 as
 	declare @intError int
 	begin transaction

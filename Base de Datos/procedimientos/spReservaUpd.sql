@@ -1,11 +1,12 @@
 -- spReservaUpd
-create procedure spReservaUpd
+ALTER procedure spReservaUpd
 	@ReservaID      int,
 	@InquilinoID    int,
 	@TipoReservaID  int,
 	@Sena           decimal(18,2),
 	@TotalAPagar    decimal(18,2),
-	@TotalPagado    decimal(18,2)
+	@TotalPagado    decimal(18,2),
+	@EstadoReservaID int
 as
 	declare @intError int
 	begin transaction
@@ -15,7 +16,8 @@ as
 			TipoReservaID = @TipoReservaID,
 			Sena = @Sena,
 			TotalAPagar = @TotalAPagar,
-			TotalPagado = @TotalPagado
+			TotalPagado = @TotalPagado,
+			EstadoReservaID = @EstadoReservaID
 		where ReservaID = @ReservaID
 
       set @intError = @@Error

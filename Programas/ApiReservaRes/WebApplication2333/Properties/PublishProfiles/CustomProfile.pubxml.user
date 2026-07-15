@@ -5,8 +5,8 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
 -->
 <Project>
   <PropertyGroup>
-    <_PublishTargetUrl>C:\Users\Usuario\OneDrive\Desktop\WebSite8</_PublishTargetUrl>
-    <History>True|2026-07-14T19:47:54.5857031Z||;False|2026-07-14T16:41:24.7138326-03:00||;True|2026-07-14T16:05:16.2330266-03:00||;True|2026-07-14T13:53:31.7511152-03:00||;True|2026-07-14T13:28:17.0728018-03:00||;True|2026-07-14T13:27:51.8356770-03:00||;True|2026-03-02T14:28:39.7669395-03:00||;True|2026-02-26T15:48:46.5696842-03:00||;True|2026-02-26T15:48:25.4467718-03:00||;True|2026-02-26T14:59:31.8383526-03:00||;True|2026-02-20T15:44:47.6405536-03:00||;</History>
+    <_PublishTargetUrl>C:\Users\Usuario\OneDrive\Desktop\WebSite10</_PublishTargetUrl>
+    <History>True|2026-07-15T14:26:40.1669756Z||;True|2026-07-15T09:26:47.4643888-03:00||;True|2026-07-14T16:47:54.5857031-03:00||;False|2026-07-14T16:41:24.7138326-03:00||;True|2026-07-14T16:05:16.2330266-03:00||;True|2026-07-14T13:53:31.7511152-03:00||;True|2026-07-14T13:28:17.0728018-03:00||;True|2026-07-14T13:27:51.8356770-03:00||;True|2026-03-02T14:28:39.7669395-03:00||;True|2026-02-26T15:48:46.5696842-03:00||;True|2026-02-26T15:48:25.4467718-03:00||;True|2026-02-26T14:59:31.8383526-03:00||;True|2026-02-20T15:44:47.6405536-03:00||;</History>
     <LastFailureDetails />
   </PropertyGroup>
   <ItemGroup>
@@ -17,10 +17,10 @@ edite el archivo MSBuild. Visite https://go.microsoft.com/fwlink/?LinkID=208121 
       <publishTime>09/10/2013 13:29:20</publishTime>
     </File>
     <File Include="bin/ApiConexionIA.dll">
-      <publishTime>07/14/2026 16:47:54</publishTime>
+      <publishTime>07/15/2026 11:26:39</publishTime>
     </File>
     <File Include="bin/ApiConexionIA.pdb">
-      <publishTime>07/14/2026 16:47:54</publishTime>
+      <publishTime>07/15/2026 11:26:39</publishTime>
     </File>
     <File Include="bin/es/System.Net.Http.Formatting.resources.dll">
       <publishTime>10/20/2023 17:35:08</publishTime>

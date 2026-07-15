@@ -1,16 +1,17 @@
 -- spReservaIns
-create procedure spReservaIns
+alter procedure spReservaIns
 	@InquilinoID    int,
 	@TipoReservaID  int,
 	@Sena           decimal(18,2),
 	@TotalAPagar    decimal(18,2),
-	@TotalPagado    decimal(18,2)
+	@TotalPagado    decimal(18,2),
+	@EstadoReservaID int
 as
 	declare @intError int
 	begin transaction
 
-	insert Reserva (InquilinoID, TipoReservaID, Sena, TotalAPagar, TotalPagado)
-	values (@InquilinoID, @TipoReservaID, @Sena, @TotalAPagar, @TotalPagado)
+	insert Reserva (InquilinoID, TipoReservaID, Sena, TotalAPagar, TotalPagado, EstadoReservaID)
+	values (@InquilinoID, @TipoReservaID, @Sena, @TotalAPagar, @TotalPagado,@EstadoReservaId)
 
       set @intError = @@Error
       if (@intError <> 0) goto onError

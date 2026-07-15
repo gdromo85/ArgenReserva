@@ -14,6 +14,7 @@ namespace ApiReservaRes.Models
 
         public Inquilino inquilino { get; set; }
         public TipoReserva tipoReserva { get; set; }
+        public EstadoReserva estadoReserva { get; set; }
         public decimal seña { get; set; }
         public decimal TotalAPagar { get; set; }
         public decimal TotalPagado { get; set; }

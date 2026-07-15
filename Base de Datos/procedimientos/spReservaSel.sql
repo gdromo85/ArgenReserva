@@ -1,5 +1,5 @@
 -- spReservaSel
-create procedure spReservaSel
+ALTER procedure spReservaSel
    @ReservaID int = null
 as
 	declare @intError int
@@ -20,11 +20,16 @@ as
 
 		tr.TipoReservaID,
 		tr.nombre       as TipoReserva_Nombre,
-		tr.descripcion  as TipoReserva_Descripcion
+		tr.descripcion  as TipoReserva_Descripcion,
+
+		er.EstadoReservaId,
+		er.nombre       as EstadoReserva_Nombre,
+		er.descripcion  as EstadoReserva_Descripcion
 
 	from Reserva r
 		inner join Inquilino i on i.InquilinoID = r.InquilinoID
 		inner join TipoReserva tr on tr.TipoReservaID = r.TipoReservaID
+		inner join EstadoReserva er on er.EstadoReservaId = r.EstadoReservaID
 	where r.ReservaID = isnull(@ReservaID, r.ReservaID)
 	order by r.ReservaID desc
 

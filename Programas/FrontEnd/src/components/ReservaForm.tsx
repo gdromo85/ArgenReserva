@@ -2,8 +2,10 @@ import React, { useState, useEffect } from "react";
 import { Reserva } from "../types/Reserva";
 import { Inquilino } from "../types/Inquilino";
 import { TipoReserva } from "../types/TipoReserva";
-import { getInquilinos } from "../api/inquilinos";
+import { EstadoReserva } from "../types/EstadoReserva";
+import { createInquilino, updateInquilino } from "../api/inquilinos";
 import { getTiposReserva } from "../api/tiposReserva";
+import { getEstadosReserva } from "../api/estadosReserva";
 import DetalleReservaRow, { DetalleReservaRowData } from "./DetalleReservaRow";
 
 interface ReservaFormProps {
@@ -16,8 +18,41 @@ interface ReservaFormProps {
 interface FormErrors {
   inquilino?: string;
   tipoReserva?: string;
+  estadoReserva?: string;
   detalle?: string;
 }
+
+interface InquilinoFormData {
+  inquilinoId?: number;
+  nombre: string;
+  telefono: string;
+  apellido: string;
+  direccion: string;
+  descripcion: string;
+}
+
+const TIPO_RESERVA_DEFAULT = "directa";
+const ESTADO_RESERVA_DEFAULT = "confirmado";
+
+const emptyInquilinoData = (): InquilinoFormData => ({
+  nombre: "",
+  telefono: "",
+  apellido: "",
+  direccion: "",
+  descripcion: ""
+});
+
+const inquilinoDataFrom = (inquilino?: Inquilino): InquilinoFormData => {
+  if (!inquilino) return emptyInquilinoData();
+  return {
+    inquilinoId: inquilino.inquilinoId,
+    nombre: inquilino.nombre ?? "",
+    telefono: inquilino.telefono ?? "",
+    apellido: inquilino.apellido ?? "",
+    direccion: inquilino.direccion ?? "",
+    descripcion: inquilino.descripcion ?? ""
+  };
+};
 
 let rowIdCounter = 0;
 const nextRowId = (): string => `row-${rowIdCounter++}`;
@@ -48,36 +83,53 @@ const rowsFromReserva = (reserva?: Reserva): DetalleReservaRowData[] => {
   }));
 };
 
+const formatMoneda = (valor: number): string =>
+  (valor || 0).toLocaleString("es-AR", { style: "currency", currency: "ARS" });
+
 const ReservaForm: React.FC<ReservaFormProps> = ({ initialData, onSubmit, onCancel, isLoading }) => {
-  const [inquilinos, setInquilinos] = useState<Inquilino[]>([]);
   const [tiposReserva, setTiposReserva] = useState<TipoReserva[]>([]);
+  const [estadosReserva, setEstadosReserva] = useState<EstadoReserva[]>([]);
   const [loadingListas, setLoadingListas] = useState(true);
 
-  const [inquilinoId, setInquilinoId] = useState<number | "">(initialData?.inquilino?.inquilinoId ?? "");
+  const [inquilinoData, setInquilinoData] = useState<InquilinoFormData>(() => inquilinoDataFrom(initialData?.inquilino));
+  const [mostrarMasDatosInquilino, setMostrarMasDatosInquilino] = useState(false);
+  const [savingInquilino, setSavingInquilino] = useState(false);
+
   const [tipoReservaId, setTipoReservaId] = useState<number | "">(initialData?.tipoReserva?.tipoReservaId ?? "");
+  const [estadoReservaId, setEstadoReservaId] = useState<number | "">(initialData?.estadoReserva?.estadoReservaId ?? "");
   const [seña, setSeña] = useState<number>(initialData?.seña ?? 0);
-  const [totalAPagar, setTotalAPagar] = useState<number>(initialData?.TotalAPagar ?? 0);
   const [totalPagado, setTotalPagado] = useState<number>(initialData?.TotalPagado ?? 0);
   const [detalles, setDetalles] = useState<DetalleReservaRowData[]>(() => rowsFromReserva(initialData));
   const [errors, setErrors] = useState<FormErrors>({});
 
+  const totalAPagar = detalles.reduce((sum, d) => sum + (Number(d.precioACobrar) || 0), 0);
+  const debe = totalAPagar - totalPagado;
+
   useEffect(() => {
-    Promise.all([getInquilinos(), getTiposReserva()])
-      .then(([inq, tipos]) => {
-        setInquilinos(inq);
+    Promise.all([getTiposReserva(), getEstadosReserva()])
+      .then(([tipos, estados]) => {
         setTiposReserva(tipos);
+        setEstadosReserva(estados);
+        if (!initialData) {
+          const directa = tipos.find(t => t.nombre?.trim().toLowerCase() === TIPO_RESERVA_DEFAULT);
+          if (directa) setTipoReservaId(directa.tipoReservaId ?? "");
+
+          const confirmado = estados.find(e => e.nombre?.trim().toLowerCase() === ESTADO_RESERVA_DEFAULT);
+          if (confirmado) setEstadoReservaId(confirmado.estadoReservaId ?? "");
+        }
       })
       .catch(err => console.error(err))
       .finally(() => setLoadingListas(false));
   }, []);
 
   useEffect(() => {
-    setInquilinoId(initialData?.inquilino?.inquilinoId ?? "");
+    setInquilinoData(inquilinoDataFrom(initialData?.inquilino));
     setTipoReservaId(initialData?.tipoReserva?.tipoReservaId ?? "");
+    setEstadoReservaId(initialData?.estadoReserva?.estadoReservaId ?? "");
     setSeña(initialData?.seña ?? 0);
-    setTotalAPagar(initialData?.TotalAPagar ?? 0);
     setTotalPagado(initialData?.TotalPagado ?? 0);
     setDetalles(rowsFromReserva(initialData));
+    setMostrarMasDatosInquilino(false);
   }, [initialData]);
 
   const handleDetalleChange = (rowId: string, data: DetalleReservaRowData) => {
@@ -92,10 +144,19 @@ const ReservaForm: React.FC<ReservaFormProps> = ({ initialData, onSubmit, onCanc
     setDetalles(prev => prev.filter(d => d.rowId !== rowId));
   };
 
+  const handleSeñaChange = (value: number) => {
+    const diff = value - seña;
+    setSeña(value);
+    setTotalPagado(prev => Math.max(0, prev + diff));
+  };
+
   const validate = (): boolean => {
     const newErrors: FormErrors = {};
-    if (!inquilinoId) newErrors.inquilino = "Debe seleccionar un inquilino";
+    if (!inquilinoData.nombre.trim()) newErrors.inquilino = "El nombre del inquilino es requerido";
+    else if (!inquilinoData.telefono.trim()) newErrors.inquilino = "El teléfono del inquilino es requerido";
+
     if (!tipoReservaId) newErrors.tipoReserva = "Debe seleccionar un tipo de reserva";
+    if (!estadoReservaId) newErrors.estadoReserva = "Debe seleccionar un estado";
 
     const detalleValido = detalles.length > 0 && detalles.every(
       d => d.unidadAlojamiento && d.fechaDesde && d.fechaHasta && d.cantidadPersonas > 0
@@ -110,13 +171,37 @@ const ReservaForm: React.FC<ReservaFormProps> = ({ initialData, onSubmit, onCanc
     e.preventDefault();
     if (!validate()) return;
 
-    const inquilino = inquilinos.find(i => i.inquilinoId === inquilinoId)!;
+    let inquilino: Inquilino;
+    const payload: Inquilino = {
+      inquilinoId: inquilinoData.inquilinoId,
+      nombre: inquilinoData.nombre.trim(),
+      telefono: inquilinoData.telefono.trim(),
+      apellido: inquilinoData.apellido.trim(),
+      direccion: inquilinoData.direccion.trim(),
+      descripcion: inquilinoData.descripcion.trim()
+    };
+
+    try {
+      setSavingInquilino(true);
+      inquilino = inquilinoData.inquilinoId
+        ? await updateInquilino(payload)
+        : await createInquilino(payload);
+    } catch (err) {
+      console.error(err);
+      setErrors(prev => ({ ...prev, inquilino: "Error al guardar el inquilino" }));
+      return;
+    } finally {
+      setSavingInquilino(false);
+    }
+
     const tipoReserva = tiposReserva.find(t => t.tipoReservaId === tipoReservaId)!;
+    const estadoReserva = estadosReserva.find(e => e.estadoReservaId === estadoReservaId)!;
 
     const reserva: Reserva = {
       reservaId: initialData?.reservaId,
       inquilino,
       tipoReserva,
+      estadoReserva,
       seña,
       TotalAPagar: totalAPagar,
       TotalPagado: totalPagado,
@@ -144,26 +229,74 @@ const ReservaForm: React.FC<ReservaFormProps> = ({ initialData, onSubmit, onCanc
 
   return (
     <form onSubmit={handleSubmit}>
-      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
-        <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1">
-            Inquilino *
-          </label>
-          <select
-            value={inquilinoId}
-            onChange={e => setInquilinoId(e.target.value ? Number(e.target.value) : "")}
-            className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 ${
-              errors.inquilino ? "border-red-500 focus:ring-red-500" : "border-gray-300 focus:ring-indigo-500"
-            }`}
-          >
-            <option value="">Seleccionar inquilino</option>
-            {inquilinos.map(i => (
-              <option key={i.inquilinoId} value={i.inquilinoId}>{i.nombre} {i.Apellido}</option>
-            ))}
-          </select>
-          {errors.inquilino && <p className="mt-1 text-sm text-red-600">{errors.inquilino}</p>}
-        </div>
+      <div className="mb-4">
+        <label className="block text-sm font-medium text-gray-700 mb-1">
+          Inquilino *
+        </label>
+        <div className="space-y-2 border border-gray-200 rounded-md p-3">
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
+            <input
+              type="text"
+              value={inquilinoData.nombre}
+              onChange={e => setInquilinoData(prev => ({ ...prev, nombre: e.target.value }))}
+              placeholder="Nombre *"
+              className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 ${
+                errors.inquilino ? "border-red-500 focus:ring-red-500" : "border-gray-300 focus:ring-indigo-500"
+              }`}
+            />
+            <input
+              type="text"
+              value={inquilinoData.telefono}
+              onChange={e => setInquilinoData(prev => ({ ...prev, telefono: e.target.value }))}
+              placeholder="Teléfono *"
+              className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 ${
+                errors.inquilino ? "border-red-500 focus:ring-red-500" : "border-gray-300 focus:ring-indigo-500"
+              }`}
+            />
+          </div>
+          {errors.inquilino && <p className="text-sm text-red-600">{errors.inquilino}</p>}
 
+          <button
+            type="button"
+            onClick={() => setMostrarMasDatosInquilino(v => !v)}
+            className="text-xs text-gray-500 hover:text-gray-700"
+          >
+            {mostrarMasDatosInquilino ? "Ocultar datos adicionales" : "+ Agregar más datos (opcional)"}
+          </button>
+
+          {mostrarMasDatosInquilino && (
+            <div className="grid grid-cols-1 gap-2">
+              <input
+                type="text"
+                value={inquilinoData.apellido}
+                onChange={e => setInquilinoData(prev => ({ ...prev, apellido: e.target.value }))}
+                placeholder="Apellido"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              />
+              <input
+                type="text"
+                value={inquilinoData.direccion}
+                onChange={e => setInquilinoData(prev => ({ ...prev, direccion: e.target.value }))}
+                placeholder="Dirección"
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              />
+              <textarea
+                value={inquilinoData.descripcion}
+                onChange={e => setInquilinoData(prev => ({ ...prev, descripcion: e.target.value }))}
+                placeholder="Descripción"
+                rows={2}
+                className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+              />
+            </div>
+          )}
+
+          <p className="text-xs text-gray-500">
+            Podés completar el resto de los datos más adelante editando la reserva.
+          </p>
+        </div>
+      </div>
+
+      <div className="grid grid-cols-1 md:grid-cols-2 gap-4 mb-4">
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
             Tipo de Reserva *
@@ -185,6 +318,25 @@ const ReservaForm: React.FC<ReservaFormProps> = ({ initialData, onSubmit, onCanc
 
         <div>
           <label className="block text-sm font-medium text-gray-700 mb-1">
+            Estado de Reserva *
+          </label>
+          <select
+            value={estadoReservaId}
+            onChange={e => setEstadoReservaId(e.target.value ? Number(e.target.value) : "")}
+            className={`w-full px-3 py-2 border rounded-md focus:outline-none focus:ring-2 ${
+              errors.estadoReserva ? "border-red-500 focus:ring-red-500" : "border-gray-300 focus:ring-indigo-500"
+            }`}
+          >
+            <option value="">Seleccionar estado</option>
+            {estadosReserva.map(e => (
+              <option key={e.estadoReservaId} value={e.estadoReservaId}>{e.nombre}</option>
+            ))}
+          </select>
+          {errors.estadoReserva && <p className="mt-1 text-sm text-red-600">{errors.estadoReserva}</p>}
+        </div>
+
+        <div>
+          <label className="block text-sm font-medium text-gray-700 mb-1">
             Seña
           </label>
           <input
@@ -192,7 +344,7 @@ const ReservaForm: React.FC<ReservaFormProps> = ({ initialData, onSubmit, onCanc
             min={0}
             step="0.01"
             value={seña}
-            onChange={e => setSeña(Number(e.target.value))}
+            onChange={e => handleSeñaChange(Number(e.target.value))}
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
         </div>
@@ -201,14 +353,9 @@ const ReservaForm: React.FC<ReservaFormProps> = ({ initialData, onSubmit, onCanc
           <label className="block text-sm font-medium text-gray-700 mb-1">
             Total a Pagar
           </label>
-          <input
-            type="number"
-            min={0}
-            step="0.01"
-            value={totalAPagar}
-            onChange={e => setTotalAPagar(Number(e.target.value))}
-            className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
-          />
+          <div className="w-full px-3 py-2 border border-gray-200 bg-gray-50 rounded-md text-gray-700">
+            {formatMoneda(totalAPagar)}
+          </div>
         </div>
 
         <div>
@@ -224,6 +371,12 @@ const ReservaForm: React.FC<ReservaFormProps> = ({ initialData, onSubmit, onCanc
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
         </div>
+      </div>
+
+      <div className={`mb-4 p-3 rounded-md border ${debe > 0 ? "bg-amber-50 border-amber-200" : "bg-green-50 border-green-200"}`}>
+        <span className={`text-sm font-medium ${debe > 0 ? "text-amber-800" : "text-green-800"}`}>
+          {debe > 0 ? `Debe: ${formatMoneda(debe)}` : "Sin saldo pendiente"}
+        </span>
       </div>
 
       <div className="mb-2 flex justify-between items-center">
@@ -257,10 +410,10 @@ const ReservaForm: React.FC<ReservaFormProps> = ({ initialData, onSubmit, onCanc
         </button>
         <button
           type="submit"
-          disabled={isLoading}
+          disabled={isLoading || savingInquilino}
           className="px-4 py-2 text-sm font-medium text-white bg-indigo-600 rounded-md hover:bg-indigo-700 focus:outline-none focus:ring-2 focus:ring-indigo-500 disabled:opacity-50"
         >
-          {isLoading ? "Guardando..." : "Guardar"}
+          {isLoading || savingInquilino ? "Guardando..." : "Guardar"}
         </button>
       </div>
     </form>

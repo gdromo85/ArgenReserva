@@ -4,7 +4,8 @@ CREATE TABLE Reserva (
     TipoReservaID   INT NOT NULL,
     Sena            DECIMAL(18,2) NOT NULL DEFAULT 0,
     TotalAPagar     DECIMAL(18,2) NOT NULL DEFAULT 0,
-    TotalPagado     DECIMAL(18,2) NOT NULL DEFAULT 0
+    TotalPagado     DECIMAL(18,2) NOT NULL DEFAULT 0,
+	EstadoReservaID INT NOT NULL DEFAULT 1
 );
    
 

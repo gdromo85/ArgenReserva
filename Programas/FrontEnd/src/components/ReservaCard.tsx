@@ -15,20 +15,37 @@ const formatFecha = (fecha: string): string => {
   return isNaN(d.getTime()) ? "-" : d.toLocaleDateString("es-AR");
 };
 
+const estadoBadgeClasses = (nombre?: string): string => {
+  const key = nombre?.trim().toLowerCase() ?? "";
+  if (key.includes("cancel") || key.includes("anulad")) return "bg-red-100 text-red-800";
+  if (key.includes("confirm") || key.includes("pagad")) return "bg-green-100 text-green-800";
+  if (key.includes("pendient")) return "bg-yellow-100 text-yellow-800";
+  return "bg-gray-100 text-gray-800";
+};
+
 const ReservaCard: React.FC<ReservaCardProps> = ({ reserva, onEdit, onDelete }) => {
   const detalles = reserva.detalleReserva || [];
   const fechasDesde = detalles.map(d => d.fechaDesde).filter(Boolean).sort();
   const fechasHasta = detalles.map(d => d.fechaHasta).filter(Boolean).sort();
   const desde = fechasDesde[0];
   const hasta = fechasHasta[fechasHasta.length - 1];
+  const unidadesNombres = detalles.map(d => d.unidadAlojamiento?.nombre).filter(Boolean).join(", ");
+  const debe = (reserva.TotalAPagar ?? 0) - (reserva.TotalPagado ?? 0);
 
   return (
     <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
       <div className="flex justify-between items-start mb-4">
         <div>
-          <h3 className="text-lg font-semibold text-gray-900">
-            {reserva.inquilino?.nombre} {reserva.inquilino?.Apellido}
-          </h3>
+          <div className="flex items-center gap-2 mb-1">
+            <h3 className="text-lg font-semibold text-gray-900">
+              {reserva.inquilino?.nombre} {reserva.inquilino?.apellido}
+            </h3>
+            {reserva.estadoReserva?.nombre && (
+              <span className={`px-2 py-0.5 rounded-full text-xs font-medium ${estadoBadgeClasses(reserva.estadoReserva.nombre)}`}>
+                {reserva.estadoReserva.nombre}
+              </span>
+            )}
+          </div>
           <p className="text-sm text-gray-500">{reserva.tipoReserva?.nombre}</p>
         </div>
         <div className="flex gap-2">
@@ -63,12 +80,12 @@ const ReservaCard: React.FC<ReservaCardProps> = ({ reserva, onEdit, onDelete }) 
           </div>
         )}
 
-        <div className="flex items-center gap-2">
-          <svg className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+        <div className="flex items-start gap-2">
+          <svg className="h-5 w-5 text-gray-400 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
           </svg>
           <span className="text-gray-600">
-            {detalles.length} unidad{detalles.length !== 1 ? "es" : ""} reservada{detalles.length !== 1 ? "s" : ""}
+            {unidadesNombres || "Sin unidades asignadas"}
           </span>
         </div>
 
@@ -79,6 +96,10 @@ const ReservaCard: React.FC<ReservaCardProps> = ({ reserva, onEdit, onDelete }) 
           <span className="text-gray-600">
             Total: {formatMoneda(reserva.TotalAPagar)} · Pagado: {formatMoneda(reserva.TotalPagado)}
           </span>
+        </div>
+
+        <div className={`text-sm font-medium ${debe > 0 ? "text-amber-700" : "text-green-700"}`}>
+          {debe > 0 ? `Debe: ${formatMoneda(debe)}` : "Sin saldo pendiente"}
         </div>
       </div>
     </div>

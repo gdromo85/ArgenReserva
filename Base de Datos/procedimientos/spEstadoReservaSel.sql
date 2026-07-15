@@ -1,14 +1,12 @@
--- spDetalleReservaSel
-create procedure spDetalleReservaSel
-  @ReservaID int = null,
-  @DetalleReservaID int = null
+-- spEstadoReservaSel
+create procedure spEstadoReservaSel
+  
 as
 	declare @intError int
 	begin transaction
 
-	select * from DetalleReserva
-		where ReservaID = isnull(@ReservaID, ReservaID)
-		  and DetalleReservaID = isnull(@DetalleReservaID, DetalleReservaID)
+	select * from EstadoReserva
+		
 
     set @intError = @@Error
     if (@intError <> 0) goto onError

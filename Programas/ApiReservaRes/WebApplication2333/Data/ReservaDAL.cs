@@ -104,6 +104,7 @@ namespace ApiReservaRes.Data
 
                 cmd.Parameters.Add(new SqlParameter("@InquilinoID", objeto.inquilino.inquilinoId));
                 cmd.Parameters.Add(new SqlParameter("@TipoReservaID", objeto.tipoReserva.tipoReservaId));
+                cmd.Parameters.Add(new SqlParameter("@EstadoReservaID", objeto.estadoReserva.estadoReservaId));
                 cmd.Parameters.Add(new SqlParameter("@Sena", objeto.seña));
                 cmd.Parameters.Add(new SqlParameter("@TotalAPagar", objeto.TotalAPagar));
                 cmd.Parameters.Add(new SqlParameter("@TotalPagado", objeto.TotalPagado));
@@ -148,6 +149,7 @@ namespace ApiReservaRes.Data
                 cmd.Parameters.Add(new SqlParameter("@ReservaID", objeto.reservaId));
                 cmd.Parameters.Add(new SqlParameter("@InquilinoID", objeto.inquilino.inquilinoId));
                 cmd.Parameters.Add(new SqlParameter("@TipoReservaID", objeto.tipoReserva.tipoReservaId));
+                cmd.Parameters.Add(new SqlParameter("@EstadoReservaID", objeto.estadoReserva.estadoReservaId));
                 cmd.Parameters.Add(new SqlParameter("@Sena", objeto.seña));
                 cmd.Parameters.Add(new SqlParameter("@TotalAPagar", objeto.TotalAPagar));
                 cmd.Parameters.Add(new SqlParameter("@TotalPagado", objeto.TotalPagado));
@@ -221,6 +223,12 @@ namespace ApiReservaRes.Data
             if (dr["TipoReserva_Nombre"] != DBNull.Value) tipoReserva.nombre = dr["TipoReserva_Nombre"].ToString();
             if (dr["TipoReserva_Descripcion"] != DBNull.Value) tipoReserva.descripcion = dr["TipoReserva_Descripcion"].ToString();
             objeto.tipoReserva = tipoReserva;
+
+            var estadoReserva = new EstadoReserva();
+            estadoReserva.estadoReservaId = Convert.ToInt32(dr["EstadoReservaId"]);
+            if (dr["EstadoReserva_Nombre"] != DBNull.Value) estadoReserva.nombre = dr["EstadoReserva_Nombre"].ToString();
+            if (dr["EstadoReserva_Descripcion"] != DBNull.Value) estadoReserva.descripcion = dr["EstadoReserva_Descripcion"].ToString();
+            objeto.estadoReserva = estadoReserva;
 
             return objeto;
         }
