@@ -7,15 +7,20 @@ import { Reserva } from "../types/Reserva";
 import { UnidadAlojamiento } from "../types/UnidadAlojamiento";
 import { EstadoReserva } from "../types/EstadoReserva";
 import ReservaCard from "../components/ReservaCard";
-import ReservaForm from "../components/ReservaForm";
+import ReservaForm, { PrefillDetalle } from "../components/ReservaForm";
+import DisponibilidadModal from "../components/DisponibilidadModal";
+import CalendarioModal from "../components/CalendarioModal";
 import Modal from "../components/Modal";
 
 const Reservas: React.FC = () => {
   const { reservas, loading, error, addReserva, editReserva, removeReserva } = useReservas();
   const { complejos } = useComplejos();
   const [isModalOpen, setIsModalOpen] = useState(false);
+  const [isDisponibilidadOpen, setIsDisponibilidadOpen] = useState(false);
+  const [isCalendarioOpen, setIsCalendarioOpen] = useState(false);
   const [editingReserva, setEditingReserva] = useState<Reserva | null>(null);
   const [deletingReserva, setDeletingReserva] = useState<Reserva | null>(null);
+  const [prefillDetalle, setPrefillDetalle] = useState<PrefillDetalle | null>(null);
   const [isSubmitting, setIsSubmitting] = useState(false);
 
   const [filtroComplejoId, setFiltroComplejoId] = useState<number | "">("");
@@ -76,11 +81,21 @@ const Reservas: React.FC = () => {
 
   const handleCreate = () => {
     setEditingReserva(null);
+    setPrefillDetalle(null);
     setIsModalOpen(true);
   };
 
   const handleEdit = (reserva: Reserva) => {
     setEditingReserva(reserva);
+    setPrefillDetalle(null);
+    setIsModalOpen(true);
+  };
+
+  const handleReservarPrefill = (prefill: PrefillDetalle) => {
+    setEditingReserva(null);
+    setPrefillDetalle(prefill);
+    setIsDisponibilidadOpen(false);
+    setIsCalendarioOpen(false);
     setIsModalOpen(true);
   };
 
@@ -122,21 +137,42 @@ const Reservas: React.FC = () => {
   const handleCloseModal = () => {
     setIsModalOpen(false);
     setEditingReserva(null);
+    setPrefillDetalle(null);
   };
 
   return (
-    <div className="p-6">
-      <div className="flex justify-between items-center mb-6">
+    <div className="p-4 sm:p-6">
+      <div className="flex flex-col sm:flex-row sm:justify-between sm:items-center gap-3 mb-6">
         <h1 className="text-2xl font-bold text-gray-900">Reservas</h1>
-        <button
-          onClick={handleCreate}
-          className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors"
-        >
-          <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-            <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
-          </svg>
-          Nueva Reserva
-        </button>
+        <div className="flex flex-wrap gap-3">
+          <button
+            onClick={() => setIsCalendarioOpen(true)}
+            className="flex items-center gap-2 px-4 py-2 bg-white text-indigo-600 border border-indigo-600 rounded-md hover:bg-indigo-50 transition-colors"
+          >
+            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
+            </svg>
+            Ver Calendario
+          </button>
+          <button
+            onClick={() => setIsDisponibilidadOpen(true)}
+            className="flex items-center gap-2 px-4 py-2 bg-white text-indigo-600 border border-indigo-600 rounded-md hover:bg-indigo-50 transition-colors"
+          >
+            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M9 12.75L11.25 15 15 9.75M21 12a9 9 0 11-18 0 9 9 0 0118 0z" />
+            </svg>
+            Ver Disponibilidad
+          </button>
+          <button
+            onClick={handleCreate}
+            className="flex items-center gap-2 px-4 py-2 bg-indigo-600 text-white rounded-md hover:bg-indigo-700 transition-colors"
+          >
+            <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 4v16m8-8H4" />
+            </svg>
+            Nueva Reserva
+          </button>
+        </div>
       </div>
 
       {error && (
@@ -270,11 +306,24 @@ const Reservas: React.FC = () => {
       >
         <ReservaForm
           initialData={editingReserva || undefined}
+          prefillDetalle={prefillDetalle || undefined}
           onSubmit={handleSubmit}
           onCancel={handleCloseModal}
           isLoading={isSubmitting}
         />
       </Modal>
+
+      <DisponibilidadModal
+        isOpen={isDisponibilidadOpen}
+        onClose={() => setIsDisponibilidadOpen(false)}
+        onReservar={handleReservarPrefill}
+      />
+
+      <CalendarioModal
+        isOpen={isCalendarioOpen}
+        onClose={() => setIsCalendarioOpen(false)}
+        onReservar={handleReservarPrefill}
+      />
 
       {/* Modal de Confirmación para Eliminar */}
       <Modal

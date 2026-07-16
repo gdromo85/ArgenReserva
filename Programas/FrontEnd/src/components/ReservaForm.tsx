@@ -3,13 +3,23 @@ import { Reserva } from "../types/Reserva";
 import { Inquilino } from "../types/Inquilino";
 import { TipoReserva } from "../types/TipoReserva";
 import { EstadoReserva } from "../types/EstadoReserva";
+import { UnidadAlojamiento } from "../types/UnidadAlojamiento";
 import { createInquilino, updateInquilino } from "../api/inquilinos";
 import { getTiposReserva } from "../api/tiposReserva";
 import { getEstadosReserva } from "../api/estadosReserva";
-import DetalleReservaRow, { DetalleReservaRowData } from "./DetalleReservaRow";
+import { useReservas } from "../context/ReservasContext";
+import DetalleReservaRow, { DetalleReservaRowData, calcularNoches } from "./DetalleReservaRow";
+
+export interface PrefillDetalle {
+  complejoId: number;
+  unidad: UnidadAlojamiento;
+  fechaDesde: string;
+  fechaHasta: string;
+}
 
 interface ReservaFormProps {
   initialData?: Reserva;
+  prefillDetalle?: PrefillDetalle;
   onSubmit: (reserva: Reserva) => Promise<void>;
   onCancel: () => void;
   isLoading?: boolean;
@@ -33,6 +43,7 @@ interface InquilinoFormData {
 
 const TIPO_RESERVA_DEFAULT = "directa";
 const ESTADO_RESERVA_DEFAULT = "confirmado";
+const ESTADO_QUE_OCUPA = "confirmado";
 
 const emptyInquilinoData = (): InquilinoFormData => ({
   nombre: "",
@@ -69,24 +80,45 @@ const emptyDetalleRow = (): DetalleReservaRowData => ({
   fechaHasta: ""
 });
 
-const rowsFromReserva = (reserva?: Reserva): DetalleReservaRowData[] => {
-  if (!reserva || reserva.detalleReserva.length === 0) return [emptyDetalleRow()];
-  return reserva.detalleReserva.map(d => ({
-    rowId: nextRowId(),
-    detalleReservaId: d.detalleReservaId,
-    complejoId: d.unidadAlojamiento?.complejoId ?? "",
-    unidadAlojamiento: d.unidadAlojamiento,
-    precioACobrar: d.precioACobrar,
-    cantidadPersonas: d.cantidadPersonas,
-    fechaDesde: toDateInput(d.fechaDesde),
-    fechaHasta: toDateInput(d.fechaHasta)
-  }));
+const rowsFromReserva = (reserva?: Reserva, prefillDetalle?: PrefillDetalle): DetalleReservaRowData[] => {
+  if (reserva) {
+    if (reserva.detalleReserva.length === 0) return [emptyDetalleRow()];
+    return reserva.detalleReserva.map(d => ({
+      rowId: nextRowId(),
+      detalleReservaId: d.detalleReservaId,
+      complejoId: d.unidadAlojamiento?.complejoId ?? "",
+      unidadAlojamiento: d.unidadAlojamiento,
+      precioACobrar: d.precioACobrar,
+      cantidadPersonas: d.cantidadPersonas,
+      fechaDesde: toDateInput(d.fechaDesde),
+      fechaHasta: toDateInput(d.fechaHasta)
+    }));
+  }
+
+  if (prefillDetalle) {
+    const noches = calcularNoches(prefillDetalle.fechaDesde, prefillDetalle.fechaHasta) || 1;
+    return [{
+      rowId: nextRowId(),
+      complejoId: prefillDetalle.complejoId,
+      unidadAlojamiento: prefillDetalle.unidad,
+      precioACobrar: prefillDetalle.unidad.precio * noches,
+      cantidadPersonas: 1,
+      fechaDesde: prefillDetalle.fechaDesde,
+      fechaHasta: prefillDetalle.fechaHasta
+    }];
+  }
+
+  return [emptyDetalleRow()];
 };
+
+const seSuperponen = (aDesde: string, aHasta: string, bDesde: string, bHasta: string): boolean =>
+  aDesde < bHasta && bDesde < aHasta;
 
 const formatMoneda = (valor: number): string =>
   (valor || 0).toLocaleString("es-AR", { style: "currency", currency: "ARS" });
 
-const ReservaForm: React.FC<ReservaFormProps> = ({ initialData, onSubmit, onCancel, isLoading }) => {
+const ReservaForm: React.FC<ReservaFormProps> = ({ initialData, prefillDetalle, onSubmit, onCancel, isLoading }) => {
+  const { reservas } = useReservas();
   const [tiposReserva, setTiposReserva] = useState<TipoReserva[]>([]);
   const [estadosReserva, setEstadosReserva] = useState<EstadoReserva[]>([]);
   const [loadingListas, setLoadingListas] = useState(true);
@@ -99,8 +131,9 @@ const ReservaForm: React.FC<ReservaFormProps> = ({ initialData, onSubmit, onCanc
   const [estadoReservaId, setEstadoReservaId] = useState<number | "">(initialData?.estadoReserva?.estadoReservaId ?? "");
   const [seña, setSeña] = useState<number>(initialData?.seña ?? 0);
   const [totalPagado, setTotalPagado] = useState<number>(initialData?.TotalPagado ?? 0);
-  const [detalles, setDetalles] = useState<DetalleReservaRowData[]>(() => rowsFromReserva(initialData));
+  const [detalles, setDetalles] = useState<DetalleReservaRowData[]>(() => rowsFromReserva(initialData, prefillDetalle));
   const [errors, setErrors] = useState<FormErrors>({});
+  const [rowConflicts, setRowConflicts] = useState<Record<string, string>>({});
 
   const totalAPagar = detalles.reduce((sum, d) => sum + (Number(d.precioACobrar) || 0), 0);
   const debe = totalAPagar - totalPagado;
@@ -128,8 +161,9 @@ const ReservaForm: React.FC<ReservaFormProps> = ({ initialData, onSubmit, onCanc
     setEstadoReservaId(initialData?.estadoReserva?.estadoReservaId ?? "");
     setSeña(initialData?.seña ?? 0);
     setTotalPagado(initialData?.TotalPagado ?? 0);
-    setDetalles(rowsFromReserva(initialData));
+    setDetalles(rowsFromReserva(initialData, prefillDetalle));
     setMostrarMasDatosInquilino(false);
+    setRowConflicts({});
   }, [initialData]);
 
   const handleDetalleChange = (rowId: string, data: DetalleReservaRowData) => {
@@ -150,6 +184,36 @@ const ReservaForm: React.FC<ReservaFormProps> = ({ initialData, onSubmit, onCanc
     setTotalPagado(prev => Math.max(0, prev + diff));
   };
 
+  const buscarConflicto = (row: DetalleReservaRowData): string | null => {
+    if (!row.unidadAlojamiento || !row.fechaDesde || !row.fechaHasta) return null;
+    const unidadId = row.unidadAlojamiento.unidadAlojamientoId;
+
+    for (const otraFila of detalles) {
+      if (otraFila.rowId === row.rowId) continue;
+      if (otraFila.unidadAlojamiento?.unidadAlojamientoId !== unidadId) continue;
+      if (!otraFila.fechaDesde || !otraFila.fechaHasta) continue;
+      if (seSuperponen(row.fechaDesde, row.fechaHasta, otraFila.fechaDesde, otraFila.fechaHasta)) {
+        return "Se superpone con otra unidad de esta misma reserva";
+      }
+    }
+
+    for (const reserva of reservas) {
+      if (initialData?.reservaId && reserva.reservaId === initialData.reservaId) continue;
+      if (reserva.estadoReserva?.nombre?.trim().toLowerCase() !== ESTADO_QUE_OCUPA) continue;
+
+      for (const d of reserva.detalleReserva || []) {
+        if (d.unidadAlojamiento?.unidadAlojamientoId !== unidadId) continue;
+        const dDesde = d.fechaDesde?.slice(0, 10);
+        const dHasta = d.fechaHasta?.slice(0, 10);
+        if (dDesde && dHasta && seSuperponen(row.fechaDesde, row.fechaHasta, dDesde, dHasta)) {
+          return `Ya está reservada del ${dDesde} al ${dHasta} (reserva confirmada)`;
+        }
+      }
+    }
+
+    return null;
+  };
+
   const validate = (): boolean => {
     const newErrors: FormErrors = {};
     if (!inquilinoData.nombre.trim()) newErrors.inquilino = "El nombre del inquilino es requerido";
@@ -161,7 +225,21 @@ const ReservaForm: React.FC<ReservaFormProps> = ({ initialData, onSubmit, onCanc
     const detalleValido = detalles.length > 0 && detalles.every(
       d => d.unidadAlojamiento && d.fechaDesde && d.fechaHasta && d.cantidadPersonas > 0
     );
-    if (!detalleValido) newErrors.detalle = "Complete complejo, unidad y fechas de cada unidad reservada";
+    if (!detalleValido) {
+      newErrors.detalle = "Complete complejo, unidad y fechas de cada unidad reservada";
+    }
+
+    const nuevosConflictos: Record<string, string> = {};
+    if (detalleValido) {
+      for (const row of detalles) {
+        const conflicto = buscarConflicto(row);
+        if (conflicto) nuevosConflictos[row.rowId] = conflicto;
+      }
+      if (Object.keys(nuevosConflictos).length > 0) {
+        newErrors.detalle = "Hay unidades con fechas que se superponen con otra reserva";
+      }
+    }
+    setRowConflicts(nuevosConflictos);
 
     setErrors(newErrors);
     return Object.keys(newErrors).length === 0;
@@ -397,6 +475,7 @@ const ReservaForm: React.FC<ReservaFormProps> = ({ initialData, onSubmit, onCanc
           data={detalle}
           onChange={data => handleDetalleChange(detalle.rowId, data)}
           onRemove={() => handleRemoveDetalle(detalle.rowId)}
+          conflictError={rowConflicts[detalle.rowId]}
         />
       ))}
 

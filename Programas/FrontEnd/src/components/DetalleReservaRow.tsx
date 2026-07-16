@@ -18,9 +18,18 @@ interface DetalleReservaRowProps {
   data: DetalleReservaRowData;
   onChange: (data: DetalleReservaRowData) => void;
   onRemove: () => void;
+  conflictError?: string;
 }
 
-const DetalleReservaRow: React.FC<DetalleReservaRowProps> = ({ data, onChange, onRemove }) => {
+export const calcularNoches = (fechaDesde: string, fechaHasta: string): number => {
+  if (!fechaDesde || !fechaHasta) return 0;
+  const desde = new Date(`${fechaDesde}T00:00:00`);
+  const hasta = new Date(`${fechaHasta}T00:00:00`);
+  const noches = Math.round((hasta.getTime() - desde.getTime()) / (1000 * 60 * 60 * 24));
+  return noches > 0 ? noches : 0;
+};
+
+const DetalleReservaRow: React.FC<DetalleReservaRowProps> = ({ data, onChange, onRemove, conflictError }) => {
   const { complejos } = useComplejos();
   const [unidades, setUnidades] = useState<UnidadAlojamiento[]>([]);
   const [loadingUnidades, setLoadingUnidades] = useState(false);
@@ -44,20 +53,32 @@ const DetalleReservaRow: React.FC<DetalleReservaRowProps> = ({ data, onChange, o
 
   const handleUnidadChange = (e: React.ChangeEvent<HTMLSelectElement>) => {
     const unidad = unidades.find(u => u.unidadAlojamientoId === Number(e.target.value)) || null;
+    const noches = calcularNoches(data.fechaDesde, data.fechaHasta) || 1;
     onChange({
       ...data,
       unidadAlojamiento: unidad,
-      precioACobrar: unidad ? unidad.precio : data.precioACobrar
+      precioACobrar: unidad ? unidad.precio * noches : data.precioACobrar
     });
   };
 
   const handleFieldChange = (e: React.ChangeEvent<HTMLInputElement>) => {
     const { name, value, type } = e.target;
-    onChange({ ...data, [name]: type === "number" ? Number(value) : value });
+    const updated = { ...data, [name]: type === "number" ? Number(value) : value };
+
+    if ((name === "fechaDesde" || name === "fechaHasta") && updated.unidadAlojamiento) {
+      const noches = calcularNoches(updated.fechaDesde, updated.fechaHasta);
+      if (noches > 0) {
+        updated.precioACobrar = updated.unidadAlojamiento.precio * noches;
+      }
+    }
+
+    onChange(updated);
   };
 
+  const noches = calcularNoches(data.fechaDesde, data.fechaHasta);
+
   return (
-    <div className="border border-gray-200 rounded-md p-4 mb-4">
+    <div className={`border rounded-md p-4 mb-4 ${conflictError ? "border-red-400 bg-red-50" : "border-gray-200"}`}>
       <div className="flex justify-end">
         <button
           type="button"
@@ -155,8 +176,15 @@ const DetalleReservaRow: React.FC<DetalleReservaRowProps> = ({ data, onChange, o
             onChange={handleFieldChange}
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
+          {noches > 0 && data.unidadAlojamiento && (
+            <p className="mt-1 text-xs text-gray-500">
+              {noches} noche{noches !== 1 ? "s" : ""}
+            </p>
+          )}
         </div>
       </div>
+
+      {conflictError && <p className="mt-2 text-sm text-red-600">{conflictError}</p>}
     </div>
   );
 };
