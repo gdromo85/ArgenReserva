@@ -1,5 +1,6 @@
 import React from "react";
 import { Reserva } from "../types/Reserva";
+import KeyTag from "./KeyTag";
 
 interface ReservaCardProps {
   reserva: Reserva;
@@ -29,7 +30,13 @@ const ReservaCard: React.FC<ReservaCardProps> = ({ reserva, onEdit, onDelete }) 
   const fechasHasta = detalles.map(d => d.fechaHasta).filter(Boolean).sort();
   const desde = fechasDesde[0];
   const hasta = fechasHasta[fechasHasta.length - 1];
-  const unidadesNombres = detalles.map(d => d.unidadAlojamiento?.nombre).filter(Boolean).join(", ");
+  const unidadesUnicas = Array.from(
+    new Map(
+      detalles
+        .filter(d => d.unidadAlojamiento?.nombre)
+        .map(d => [d.unidadAlojamiento!.unidadAlojamientoId ?? d.unidadAlojamiento!.nombre, d.unidadAlojamiento!.nombre])
+    ).values()
+  );
   const debe = (reserva.TotalAPagar ?? 0) - (reserva.TotalPagado ?? 0);
 
   return (
@@ -51,7 +58,7 @@ const ReservaCard: React.FC<ReservaCardProps> = ({ reserva, onEdit, onDelete }) 
         <div className="flex gap-2">
           <button
             onClick={() => onEdit(reserva)}
-            className="p-2 text-blue-600 hover:bg-blue-50 rounded-md transition-colors"
+            className="p-2 text-indigo-600 hover:bg-indigo-50 rounded-md transition-colors"
             title="Editar"
           >
             <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
@@ -76,30 +83,36 @@ const ReservaCard: React.FC<ReservaCardProps> = ({ reserva, onEdit, onDelete }) 
             <svg className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
               <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 7V3m8 4V3m-9 8h10M5 21h14a2 2 0 002-2V7a2 2 0 00-2-2H5a2 2 0 00-2 2v12a2 2 0 002 2z" />
             </svg>
-            <span className="text-gray-600">{formatFecha(desde)} - {formatFecha(hasta)}</span>
+            <span className="font-mono text-sm text-gray-600">{formatFecha(desde)} → {formatFecha(hasta)}</span>
           </div>
         )}
 
         <div className="flex items-start gap-2">
-          <svg className="h-5 w-5 text-gray-400 mt-0.5" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+          <svg className="h-5 w-5 text-gray-400 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M19 21V5a2 2 0 00-2-2H7a2 2 0 00-2 2v16m14 0h2m-2 0h-5m-9 0H3m2 0h5M9 7h1m-1 4h1m4-4h1m-1 4h1m-5 10v-5a1 1 0 011-1h2a1 1 0 011 1v5m-4 0h4" />
           </svg>
-          <span className="text-gray-600">
-            {unidadesNombres || "Sin unidades asignadas"}
-          </span>
+          {unidadesUnicas.length > 0 ? (
+            <div className="flex flex-wrap gap-1.5">
+              {unidadesUnicas.map(nombre => (
+                <KeyTag key={nombre} label={nombre!} />
+              ))}
+            </div>
+          ) : (
+            <span className="text-gray-500">Sin unidades asignadas</span>
+          )}
         </div>
 
         <div className="flex items-center gap-2">
           <svg className="h-5 w-5 text-gray-400" fill="none" viewBox="0 0 24 24" stroke="currentColor">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M12 8c-1.657 0-3 .895-3 2s1.343 2 3 2 3 .895 3 2-1.343 2-3 2m0-8c1.11 0 2.08.402 2.599 1M12 8V7m0 1v8m0 0v1m0-1c-1.11 0-2.08-.402-2.599-1" />
           </svg>
-          <span className="text-gray-600">
-            Total: {formatMoneda(reserva.TotalAPagar)} · Pagado: {formatMoneda(reserva.TotalPagado)}
+          <span className="font-mono text-sm text-gray-600">
+            {formatMoneda(reserva.TotalAPagar)} · pagado {formatMoneda(reserva.TotalPagado)}
           </span>
         </div>
 
-        <div className={`text-sm font-medium ${debe > 0 ? "text-amber-700" : "text-green-700"}`}>
-          {debe > 0 ? `Debe: ${formatMoneda(debe)}` : "Sin saldo pendiente"}
+        <div className={`font-mono text-sm font-medium ${debe > 0 ? "text-amber-700" : "text-green-700"}`}>
+          {debe > 0 ? `Debe ${formatMoneda(debe)}` : "Sin saldo pendiente"}
         </div>
       </div>
     </div>

@@ -18,7 +18,8 @@ namespace ApiReservaRes.Models
         public decimal seña { get; set; }
         public decimal TotalAPagar { get; set; }
         public decimal TotalPagado { get; set; }
+        public DateTime FechaRegistro { get; set; }
 
-        
+
     }
 }

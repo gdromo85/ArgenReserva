@@ -1,5 +1,6 @@
 import React from "react";
 import { UnidadAlojamiento } from "../types/UnidadAlojamiento";
+import KeyTag from "./KeyTag";
 
 interface UnidadAlojamientoCardProps {
   unidad: UnidadAlojamiento;
@@ -14,13 +15,13 @@ const UnidadAlojamientoCard: React.FC<UnidadAlojamientoCardProps> = ({ unidad, o
   return (
     <div className="bg-white rounded-lg shadow-md p-6 hover:shadow-lg transition-shadow">
       <div className="flex justify-between items-start mb-4">
-        <h3 className="text-lg font-semibold text-gray-900">
-          {unidad.nombre}
+        <h3>
+          <KeyTag label={unidad.nombre} className="text-sm" />
         </h3>
         <div className="flex gap-2">
           <button
             onClick={() => onEdit(unidad)}
-            className="p-2 text-blue-600 hover:bg-blue-50 rounded-md transition-colors"
+            className="p-2 text-indigo-600 hover:bg-indigo-50 rounded-md transition-colors"
             title="Editar"
           >
             <svg className="h-5 w-5" fill="none" viewBox="0 0 24 24" stroke="currentColor">

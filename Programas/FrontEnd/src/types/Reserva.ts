@@ -12,4 +12,5 @@ export interface Reserva {
   seña: number;
   TotalAPagar: number;
   TotalPagado: number;
+  FechaRegistro?: string;
 }

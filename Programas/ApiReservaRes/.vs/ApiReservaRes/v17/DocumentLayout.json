@@ -3,16 +3,28 @@
   "WorkspaceRootPath": "D:\\GitHub\\ArgenReserva\\Programas\\ApiReservaRes\\",
   "Documents": [
     {
-      "AbsoluteMoniker": "D:0:0:{1139920E-3F05-4FDE-9F64-1C449F3C2446}|WebApplication2333\\ApiReservaRes.csproj|D:\\GitHub\\ArgenReserva\\Programas\\ApiReservaRes\\webapplication2333\\data\\reservadal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1139920E-3F05-4FDE-9F64-1C449F3C2446}|WebApplication2333\\ApiReservaRes.csproj|solutionrelative:webapplication2333\\data\\reservadal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
       "AbsoluteMoniker": "D:0:0:{1139920E-3F05-4FDE-9F64-1C449F3C2446}|WebApplication2333\\ApiReservaRes.csproj|D:\\GitHub\\ArgenReserva\\Programas\\ApiReservaRes\\webapplication2333\\models\\reserva.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1139920E-3F05-4FDE-9F64-1C449F3C2446}|WebApplication2333\\ApiReservaRes.csproj|solutionrelative:webapplication2333\\models\\reserva.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
-      "AbsoluteMoniker": "D:0:0:{1139920E-3F05-4FDE-9F64-1C449F3C2446}|WebApplication2333\\ApiReservaRes.csproj|d:\\github\\argenreserva\\programas\\apireservares\\webapplication2333\\controllers\\estadoreservacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "AbsoluteMoniker": "D:0:0:{1139920E-3F05-4FDE-9F64-1C449F3C2446}|WebApplication2333\\ApiReservaRes.csproj|d:\\github\\argenreserva\\programas\\apireservares\\webapplication2333\\data\\reservadal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1139920E-3F05-4FDE-9F64-1C449F3C2446}|WebApplication2333\\ApiReservaRes.csproj|solutionrelative:webapplication2333\\data\\reservadal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1139920E-3F05-4FDE-9F64-1C449F3C2446}|WebApplication2333\\ApiReservaRes.csproj|d:\\github\\argenreserva\\programas\\apireservares\\webapplication2333\\data\\complejodal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1139920E-3F05-4FDE-9F64-1C449F3C2446}|WebApplication2333\\ApiReservaRes.csproj|solutionrelative:webapplication2333\\data\\complejodal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1139920E-3F05-4FDE-9F64-1C449F3C2446}|WebApplication2333\\ApiReservaRes.csproj|D:\\GitHub\\ArgenReserva\\Programas\\ApiReservaRes\\webapplication2333\\controllers\\estadoreservacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1139920E-3F05-4FDE-9F64-1C449F3C2446}|WebApplication2333\\ApiReservaRes.csproj|solutionrelative:webapplication2333\\controllers\\estadoreservacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1139920E-3F05-4FDE-9F64-1C449F3C2446}|WebApplication2333\\ApiReservaRes.csproj|D:\\GitHub\\ArgenReserva\\Programas\\ApiReservaRes\\webapplication2333\\data\\estadoreservadal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1139920E-3F05-4FDE-9F64-1C449F3C2446}|WebApplication2333\\ApiReservaRes.csproj|solutionrelative:webapplication2333\\data\\estadoreservadal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
+    },
+    {
+      "AbsoluteMoniker": "D:0:0:{1139920E-3F05-4FDE-9F64-1C449F3C2446}|WebApplication2333\\ApiReservaRes.csproj|d:\\github\\argenreserva\\programas\\apireservares\\webapplication2333\\models\\detallereserva.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
+      "RelativeMoniker": "D:0:0:{1139920E-3F05-4FDE-9F64-1C449F3C2446}|WebApplication2333\\ApiReservaRes.csproj|solutionrelative:webapplication2333\\models\\detallereserva.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{1139920E-3F05-4FDE-9F64-1C449F3C2446}|WebApplication2333\\ApiReservaRes.csproj|D:\\GitHub\\ArgenReserva\\Programas\\ApiReservaRes\\webapplication2333\\models\\estadoreserva.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -21,10 +33,6 @@
     {
       "AbsoluteMoniker": "D:0:0:{1139920E-3F05-4FDE-9F64-1C449F3C2446}|WebApplication2333\\ApiReservaRes.csproj|D:\\GitHub\\ArgenReserva\\Programas\\ApiReservaRes\\webapplication2333\\controllers\\reservacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
       "RelativeMoniker": "D:0:0:{1139920E-3F05-4FDE-9F64-1C449F3C2446}|WebApplication2333\\ApiReservaRes.csproj|solutionrelative:webapplication2333\\controllers\\reservacontroller.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
-    },
-    {
-      "AbsoluteMoniker": "D:0:0:{1139920E-3F05-4FDE-9F64-1C449F3C2446}|WebApplication2333\\ApiReservaRes.csproj|D:\\GitHub\\ArgenReserva\\Programas\\ApiReservaRes\\webapplication2333\\data\\estadoreservadal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
-      "RelativeMoniker": "D:0:0:{1139920E-3F05-4FDE-9F64-1C449F3C2446}|WebApplication2333\\ApiReservaRes.csproj|solutionrelative:webapplication2333\\data\\estadoreservadal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}"
     },
     {
       "AbsoluteMoniker": "D:0:0:{1139920E-3F05-4FDE-9F64-1C449F3C2446}|WebApplication2333\\ApiReservaRes.csproj|D:\\GitHub\\ArgenReserva\\Programas\\ApiReservaRes\\webapplication2333\\data\\inquilinodal.cs||{A6C744A8-0E4A-4FC6-886A-064283054674}",
@@ -50,23 +58,50 @@
       "DocumentGroups": [
         {
           "DockedWidth": 200,
-          "SelectedChildIndex": 6,
+          "SelectedChildIndex": 5,
           "Children": [
             {
               "$type": "Document",
+              "DocumentIndex": 2,
+              "Title": "ComplejoDAL.cs",
+              "DocumentMoniker": "D:\\GitHub\\ArgenReserva\\Programas\\ApiReservaRes\\WebApplication2333\\Data\\ComplejoDAL.cs",
+              "RelativeDocumentMoniker": "WebApplication2333\\Data\\ComplejoDAL.cs",
+              "ToolTip": "D:\\GitHub\\ArgenReserva\\Programas\\ApiReservaRes\\WebApplication2333\\Data\\ComplejoDAL.cs",
+              "RelativeToolTip": "WebApplication2333\\Data\\ComplejoDAL.cs",
+              "ViewState": "AgIAABMAAAAAAAAAAAAgwAAAAAAAAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-17T16:27:47.357Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
               "DocumentIndex": 5,
+              "Title": "DetalleReserva.cs",
+              "DocumentMoniker": "D:\\GitHub\\ArgenReserva\\Programas\\ApiReservaRes\\WebApplication2333\\Models\\DetalleReserva.cs",
+              "RelativeDocumentMoniker": "WebApplication2333\\Models\\DetalleReserva.cs",
+              "ToolTip": "D:\\GitHub\\ArgenReserva\\Programas\\ApiReservaRes\\WebApplication2333\\Models\\DetalleReserva.cs",
+              "RelativeToolTip": "WebApplication2333\\Models\\DetalleReserva.cs",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAABEAAAAIAAAAAAAAAA==",
+              "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
+              "WhenOpened": "2026-07-17T15:59:04.349Z",
+              "EditorCaption": ""
+            },
+            {
+              "$type": "Document",
+              "DocumentIndex": 4,
               "Title": "EstadoReservaDAL.cs",
               "DocumentMoniker": "D:\\GitHub\\ArgenReserva\\Programas\\ApiReservaRes\\WebApplication2333\\Data\\EstadoReservaDAL.cs",
               "RelativeDocumentMoniker": "WebApplication2333\\Data\\EstadoReservaDAL.cs",
               "ToolTip": "D:\\GitHub\\ArgenReserva\\Programas\\ApiReservaRes\\WebApplication2333\\Data\\EstadoReservaDAL.cs",
               "RelativeToolTip": "WebApplication2333\\Data\\EstadoReservaDAL.cs",
-              "ViewState": "AgIAAAwAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA==",
+              "ViewState": "AgIAAAwAAAAAAAAAAAAqwAAAAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
-              "WhenOpened": "2026-07-15T14:12:06.496Z"
+              "WhenOpened": "2026-07-15T14:12:06.496Z",
+              "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 2,
+              "DocumentIndex": 3,
               "Title": "EstadoReservaController.cs",
               "DocumentMoniker": "D:\\GitHub\\ArgenReserva\\Programas\\ApiReservaRes\\WebApplication2333\\Controllers\\EstadoReservaController.cs",
               "RelativeDocumentMoniker": "WebApplication2333\\Controllers\\EstadoReservaController.cs",
@@ -79,7 +114,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 3,
+              "DocumentIndex": 6,
               "Title": "EstadoReserva.cs",
               "DocumentMoniker": "D:\\GitHub\\ArgenReserva\\Programas\\ApiReservaRes\\WebApplication2333\\Models\\EstadoReserva.cs",
               "RelativeDocumentMoniker": "WebApplication2333\\Models\\EstadoReserva.cs",
@@ -91,20 +126,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 1,
+              "DocumentIndex": 0,
               "Title": "Reserva.cs",
               "DocumentMoniker": "D:\\GitHub\\ArgenReserva\\Programas\\ApiReservaRes\\WebApplication2333\\Models\\Reserva.cs",
               "RelativeDocumentMoniker": "WebApplication2333\\Models\\Reserva.cs",
               "ToolTip": "D:\\GitHub\\ArgenReserva\\Programas\\ApiReservaRes\\WebApplication2333\\Models\\Reserva.cs",
               "RelativeToolTip": "WebApplication2333\\Models\\Reserva.cs",
-              "ViewState": "AgIAAAAAAAAAAAAAAAAAAAsAAAAiAAAAAAAAAA==",
+              "ViewState": "AgIAAAAAAAAAAAAAAAAAAA0AAAAAAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-07-15T12:51:24.182Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 6,
+              "DocumentIndex": 8,
               "Title": "InquilinoDAL.cs",
               "DocumentMoniker": "D:\\GitHub\\ArgenReserva\\Programas\\ApiReservaRes\\WebApplication2333\\Data\\InquilinoDAL.cs",
               "RelativeDocumentMoniker": "WebApplication2333\\Data\\InquilinoDAL.cs",
@@ -116,7 +151,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 7,
+              "DocumentIndex": 9,
               "Title": "Inquilino.cs",
               "DocumentMoniker": "D:\\GitHub\\ArgenReserva\\Programas\\ApiReservaRes\\WebApplication2333\\Models\\Inquilino.cs",
               "RelativeDocumentMoniker": "WebApplication2333\\Models\\Inquilino.cs",
@@ -128,20 +163,20 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 0,
+              "DocumentIndex": 1,
               "Title": "ReservaDAL.cs",
               "DocumentMoniker": "D:\\GitHub\\ArgenReserva\\Programas\\ApiReservaRes\\WebApplication2333\\Data\\ReservaDAL.cs",
               "RelativeDocumentMoniker": "WebApplication2333\\Data\\ReservaDAL.cs",
               "ToolTip": "D:\\GitHub\\ArgenReserva\\Programas\\ApiReservaRes\\WebApplication2333\\Data\\ReservaDAL.cs",
               "RelativeToolTip": "WebApplication2333\\Data\\ReservaDAL.cs",
-              "ViewState": "AgIAABYAAAAAAAAAAAAgwDIAAABSAAAAAAAAAA==",
+              "ViewState": "AgIAAMsAAAAAAAAAAAArwNIAAABJAAAAAAAAAA==",
               "Icon": "ae27a6b0-e345-4288-96df-5eaf394ee369.000738|",
               "WhenOpened": "2026-07-14T19:47:38.854Z",
               "EditorCaption": ""
             },
             {
               "$type": "Document",
-              "DocumentIndex": 4,
+              "DocumentIndex": 7,
               "Title": "ReservaController.cs",
               "DocumentMoniker": "D:\\GitHub\\ArgenReserva\\Programas\\ApiReservaRes\\WebApplication2333\\Controllers\\ReservaController.cs",
               "RelativeDocumentMoniker": "WebApplication2333\\Controllers\\ReservaController.cs",
@@ -153,7 +188,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 9,
+              "DocumentIndex": 11,
               "Title": "TipoReservaController.cs",
               "DocumentMoniker": "D:\\GitHub\\ArgenReserva\\Programas\\ApiReservaRes\\WebApplication2333\\Controllers\\TipoReservaController.cs",
               "RelativeDocumentMoniker": "WebApplication2333\\Controllers\\TipoReservaController.cs",
@@ -165,7 +200,7 @@
             },
             {
               "$type": "Document",
-              "DocumentIndex": 8,
+              "DocumentIndex": 10,
               "Title": "InquilinoController.cs",
               "DocumentMoniker": "D:\\GitHub\\ArgenReserva\\Programas\\ApiReservaRes\\WebApplication2333\\Controllers\\InquilinoController.cs",
               "RelativeDocumentMoniker": "WebApplication2333\\Controllers\\InquilinoController.cs",

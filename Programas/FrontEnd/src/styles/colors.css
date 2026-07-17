@@ -1,3 +1,12 @@
+/*
+ * Paleta de marca de ArgenReservas ("ficha de llave / libro de reservas").
+ * `--indigo-*` y `--amber-*` pisan intencionalmente los tonos por defecto de
+ * Tailwind para esos nombres: como el 90% de la app ya usa clases como
+ * bg-indigo-600 / bg-amber-50, redefinir los valores acá reskinea todo el
+ * sitio sin tocar cada componente. El nombre de la clase sigue diciendo
+ * "indigo", pero el color real es el verde pino de la marca.
+ * `--gray-*` quedó en los valores originales de Tailwind (pedido del usuario).
+ */
 :root {
   /* Primary Colors */
   --primary-50: #eff6ff;
@@ -35,6 +44,33 @@
   --gray-700: #374151;
   --gray-800: #1f2937;
   --gray-900: #111827;
+  --gray-950: #030712;
+
+  /* "indigo" → verde pino (color de marca: nav, botones, foco, links) */
+  --indigo-50: #eff5f1;
+  --indigo-100: #dcebe1;
+  --indigo-200: #b9d6c4;
+  --indigo-300: #8fbba0;
+  --indigo-400: #63997c;
+  --indigo-500: #457a5f;
+  --indigo-600: #2f5f47;
+  --indigo-700: #254a38;
+  --indigo-800: #1d3b2d;
+  --indigo-900: #162e23;
+  --indigo-950: #0c1d16;
+
+  /* "amber" → bronce de ficha de llave (acento: fichas de unidad, avisos de saldo) */
+  --amber-50: #fbf3e4;
+  --amber-100: #f5e3c2;
+  --amber-200: #eacb8b;
+  --amber-300: #deb35f;
+  --amber-400: #cc9a3f;
+  --amber-500: #b6822d;
+  --amber-600: #9c6c22;
+  --amber-700: #7c551c;
+  --amber-800: #634418;
+  --amber-900: #4f3714;
+  --amber-950: #2e1f0c;
 }
 
 /* Custom utility classes */

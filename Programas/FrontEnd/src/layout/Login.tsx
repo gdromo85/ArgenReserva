@@ -3,6 +3,7 @@ import { useNavigate } from "react-router";
 import { getApiUrl } from "../utils/api";
 import axios from "axios";
 import { useAuth } from "../context/AuthContext";
+import BrandMark from "../components/BrandMark";
 import "../styles/colors.css";
 
 interface FormData {
@@ -172,14 +173,13 @@ function Login() {
   return (
     <div className="flex min-h-full flex-col justify-center px-6 py-12 lg:px-8">
       <div className="sm:mx-auto sm:w-full sm:max-w-sm">
-        <img
-          className="mx-auto h-10 w-auto"
-          src="https://tailwindcss.com/plus-assets/img/logos/mark.svg?color=indigo&shade=600"
-          alt="Your Company"
-        />
-        <h2 className="mt-10 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
-          Login
+        <BrandMark className="mx-auto h-9 w-auto" />
+        <h2 className="mt-8 text-center text-2xl/9 font-bold tracking-tight text-gray-900">
+          Ingresá a tu cuenta
         </h2>
+        <p className="mt-2 text-center text-sm text-gray-500">
+          Gestioná tus complejos, unidades y reservas
+        </p>
       </div>
 
       <div className="mt-10 sm:mx-auto sm:w-full sm:max-w-sm">
@@ -281,17 +281,17 @@ function Login() {
                   Iniciando sesión...
                 </div>
               ) : (
-                'Aceptar'
+                'Ingresar'
               )}
             </button>
           </div>
         </form>
 
         {/* Información de prueba */}
-        <div className="mt-6 p-4 bg-blue-50 rounded-md border border-blue-200">
-          <h3 className="text-sm font-medium text-blue-800 mb-2">Credenciales de prueba:</h3>
-          <p className="text-xs text-blue-700">Usuario: prueba</p>
-          <p className="text-xs text-blue-700">Contraseña: prueba</p>
+        <div className="mt-6 p-4 bg-indigo-50 rounded-md border border-indigo-200">
+          <h3 className="text-sm font-medium text-indigo-900 mb-2">Credenciales de prueba</h3>
+          <p className="font-mono text-xs text-indigo-700">Usuario: prueba</p>
+          <p className="font-mono text-xs text-indigo-700">Contraseña: prueba</p>
         </div>
       </div>
     </div>

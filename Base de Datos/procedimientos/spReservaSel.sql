@@ -10,6 +10,7 @@ as
 		r.Sena,
 		r.TotalAPagar,
 		r.TotalPagado,
+		r.FechaRegistro,
 
 		i.InquilinoID,
 		i.nombre        as Inquilino_Nombre,

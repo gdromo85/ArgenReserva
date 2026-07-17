@@ -3,7 +3,38 @@ export default {
   content: ['./index.html', './src/**/*.{js,ts,jsx,tsx}'],
   theme: {
     extend: {
+      fontFamily: {
+        mono: ['"IBM Plex Mono"', 'ui-monospace', 'SFMono-Regular', 'monospace'],
+      },
       colors: {
+        // Repuesto de marca: mismos nombres de clase que Tailwind trae por
+        // defecto (indigo/amber/gray), valores redefinidos en colors.css.
+        indigo: {
+          50: 'var(--indigo-50)',
+          100: 'var(--indigo-100)',
+          200: 'var(--indigo-200)',
+          300: 'var(--indigo-300)',
+          400: 'var(--indigo-400)',
+          500: 'var(--indigo-500)',
+          600: 'var(--indigo-600)',
+          700: 'var(--indigo-700)',
+          800: 'var(--indigo-800)',
+          900: 'var(--indigo-900)',
+          950: 'var(--indigo-950)',
+        },
+        amber: {
+          50: 'var(--amber-50)',
+          100: 'var(--amber-100)',
+          200: 'var(--amber-200)',
+          300: 'var(--amber-300)',
+          400: 'var(--amber-400)',
+          500: 'var(--amber-500)',
+          600: 'var(--amber-600)',
+          700: 'var(--amber-700)',
+          800: 'var(--amber-800)',
+          900: 'var(--amber-900)',
+          950: 'var(--amber-950)',
+        },
         primary: {
           50: 'var(--primary-50)',
           100: 'var(--primary-100)',

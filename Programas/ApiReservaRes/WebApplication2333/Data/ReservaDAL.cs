@@ -208,6 +208,7 @@ namespace ApiReservaRes.Data
             if (dr["Sena"] != DBNull.Value) objeto.seña = Convert.ToDecimal(dr["Sena"]);
             if (dr["TotalAPagar"] != DBNull.Value) objeto.TotalAPagar = Convert.ToDecimal(dr["TotalAPagar"]);
             if (dr["TotalPagado"] != DBNull.Value) objeto.TotalPagado = Convert.ToDecimal(dr["TotalPagado"]);
+            if (dr["FechaRegistro"] != DBNull.Value) objeto.FechaRegistro = Convert.ToDateTime(dr["FechaRegistro"]);
 
             var inquilino = new Inquilino();
             inquilino.inquilinoId = Convert.ToInt32(dr["InquilinoID"]);

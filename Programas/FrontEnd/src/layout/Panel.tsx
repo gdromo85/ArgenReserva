@@ -2,6 +2,8 @@ import { useLocation, Link, Outlet, useNavigate } from "react-router";
 import "../styles/colors.css";
 import { useComplejos } from "../context/ComplejosContext";
 import { useAuth } from "../context/AuthContext";
+import BrandMark from "../components/BrandMark";
+import ProximasReservas from "../components/ProximasReservas";
 import { useEffect, useState } from "react";
 
 const NAV_LINKS = [
@@ -51,7 +53,8 @@ function Panel() {
         <div className="max-w-7xl mx-auto px-4">
           <div className="flex justify-between items-center h-16">
             {/* Logo/Título */}
-            <Link to="/panel" className="text-white font-bold text-xl">
+            <Link to="/panel" className="flex items-center gap-2 text-white font-bold text-xl">
+              <BrandMark tone="light" className="h-6 w-auto" />
               ArgenReservas
             </Link>
 
@@ -134,27 +137,34 @@ function Panel() {
             
             {usuario && (
               <div className="bg-white rounded-lg shadow p-6 mb-8">
-                <h2 className="text-xl font-semibold mb-4">Datos del Usuario</h2>
-                <div className="grid grid-cols-1 sm:grid-cols-2 gap-4">
-                  <div>
-                    <p className="text-sm text-gray-500">ID:</p>
-                    <p className="font-medium">{usuario.usuarioID}</p>
+                <div className="flex flex-wrap items-center gap-4">
+                  <div className="h-14 w-14 shrink-0 rounded-full bg-indigo-100 text-indigo-800 flex items-center justify-center font-mono text-lg font-semibold">
+                    {usuario.nombre
+                      .trim()
+                      .split(/\s+/)
+                      .slice(0, 2)
+                      .map(parte => parte[0]?.toUpperCase())
+                      .join("")}
                   </div>
-                  <div>
-                    <p className="text-sm text-gray-500">Nombre:</p>
-                    <p className="font-medium">{usuario.nombre}</p>
+                  <div className="min-w-0">
+                    <p className="text-lg font-semibold text-gray-900 truncate">{usuario.nombre}</p>
+                    <p className="text-sm text-gray-500 truncate">{usuario.email}</p>
                   </div>
-                  <div>
-                    <p className="text-sm text-gray-500">Email:</p>
-                    <p className="font-medium">{usuario.email}</p>
-                  </div>
-                  <div>
-                    <p className="text-sm text-gray-500">Activo:</p>
-                    <p className="font-medium">{usuario.activo ? "Sí" : "No"}</p>
-                  </div>
+                  <span
+                    className={`ml-0 sm:ml-2 px-2 py-0.5 rounded-full text-xs font-medium ${
+                      usuario.activo ? "bg-green-100 text-green-800" : "bg-gray-100 text-gray-600"
+                    }`}
+                  >
+                    {usuario.activo ? "Activo" : "Inactivo"}
+                  </span>
+                  <span className="ml-auto font-mono text-xs text-gray-400">ID {usuario.usuarioID}</span>
                 </div>
               </div>
             )}
+
+            <div className="mb-8">
+              <ProximasReservas />
+            </div>
 
             {/* Complejos del Usuario */}
             <div className="bg-white rounded-lg shadow p-6">
