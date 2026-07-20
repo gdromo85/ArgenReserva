@@ -20,6 +20,8 @@ namespace ApiReservaRes.Models
         public decimal TotalPagado { get; set; }
         public DateTime FechaRegistro { get; set; }
 
+        public string descripcion { get; set; }
+
 
     }
 }

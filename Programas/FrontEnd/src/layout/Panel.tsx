@@ -16,12 +16,8 @@ function Panel() {
   const location = useLocation();
   const navigate = useNavigate();
   const { usuario, logout } = useAuth();
-  const { complejosXUsuario, fetchComplejosXUsuario } = useComplejos();
+  const { complejos } = useComplejos();
   const [menuAbierto, setMenuAbierto] = useState(false);
-
-  useEffect(() => {
-      fetchComplejosXUsuario(usuario?.usuarioID || 0);
-    }, []);
 
   useEffect(() => {
     setMenuAbierto(false);
@@ -178,13 +174,13 @@ function Panel() {
                 </Link>
               </div>
               
-              {complejosXUsuario.length === 0 ? (
+              {complejos.length === 0 ? (
                 <p className="text-gray-500 text-center py-4">
                   No tienes complejos registrados
                 </p>
               ) : (
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-4">
-                  {complejosXUsuario.slice(0, 3).map((complejo) => (
+                  {complejos.slice(0, 3).map((complejo) => (
                     <div key={complejo.ComplejoID} className="border rounded-lg p-4">
                       <h3 className="font-semibold text-gray-900">{complejo.Nombre}</h3>
                       <p className="text-sm text-gray-600 mt-1">{complejo.Direccion}</p>

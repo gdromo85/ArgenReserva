@@ -4,11 +4,6 @@ import { Complejo } from "../types/Complejo";
 
 const API_ENDPOINT = `${getApiUrl()}api/Complejo`;
 
-export const getComplejos = async (): Promise<Complejo[]> => {
-  const response = await axios.get<Complejo[]>(`${getApiUrl()}api/complejo/listado`);
-  return response.data;
-};
-
 export const getComplejoByUsuario = async (id: number): Promise<Complejo[]> => {
   const response = await axios.get<Complejo[]>(`${getApiUrl()}api/complejo/traerComplejoXUsuario/${id}`);
   return response.data;

@@ -108,6 +108,7 @@ namespace ApiReservaRes.Data
                 cmd.Parameters.Add(new SqlParameter("@Sena", objeto.seña));
                 cmd.Parameters.Add(new SqlParameter("@TotalAPagar", objeto.TotalAPagar));
                 cmd.Parameters.Add(new SqlParameter("@TotalPagado", objeto.TotalPagado));
+                cmd.Parameters.Add(new SqlParameter("@Descripcion", objeto.descripcion));
 
                 cmd.Connection = oConexion;
 
@@ -153,6 +154,7 @@ namespace ApiReservaRes.Data
                 cmd.Parameters.Add(new SqlParameter("@Sena", objeto.seña));
                 cmd.Parameters.Add(new SqlParameter("@TotalAPagar", objeto.TotalAPagar));
                 cmd.Parameters.Add(new SqlParameter("@TotalPagado", objeto.TotalPagado));
+                cmd.Parameters.Add(new SqlParameter("@Descripcion", objeto.descripcion));
 
                 cmd.Connection = oConexion;
 
@@ -209,6 +211,7 @@ namespace ApiReservaRes.Data
             if (dr["TotalAPagar"] != DBNull.Value) objeto.TotalAPagar = Convert.ToDecimal(dr["TotalAPagar"]);
             if (dr["TotalPagado"] != DBNull.Value) objeto.TotalPagado = Convert.ToDecimal(dr["TotalPagado"]);
             if (dr["FechaRegistro"] != DBNull.Value) objeto.FechaRegistro = Convert.ToDateTime(dr["FechaRegistro"]);
+            if (dr["Descripcion"] != DBNull.Value) objeto.descripcion = dr["Descripcion"].ToString();
 
             var inquilino = new Inquilino();
             inquilino.inquilinoId = Convert.ToInt32(dr["InquilinoID"]);

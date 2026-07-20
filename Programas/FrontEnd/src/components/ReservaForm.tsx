@@ -131,6 +131,7 @@ const ReservaForm: React.FC<ReservaFormProps> = ({ initialData, prefillDetalle, 
   const [estadoReservaId, setEstadoReservaId] = useState<number | "">(initialData?.estadoReserva?.estadoReservaId ?? "");
   const [seña, setSeña] = useState<number>(initialData?.seña ?? 0);
   const [totalPagado, setTotalPagado] = useState<number>(initialData?.TotalPagado ?? 0);
+  const [descripcion, setDescripcion] = useState<string>(initialData?.descripcion ?? "");
   const [detalles, setDetalles] = useState<DetalleReservaRowData[]>(() => rowsFromReserva(initialData, prefillDetalle));
   const [errors, setErrors] = useState<FormErrors>({});
   const [rowConflicts, setRowConflicts] = useState<Record<string, string>>({});
@@ -161,6 +162,7 @@ const ReservaForm: React.FC<ReservaFormProps> = ({ initialData, prefillDetalle, 
     setEstadoReservaId(initialData?.estadoReserva?.estadoReservaId ?? "");
     setSeña(initialData?.seña ?? 0);
     setTotalPagado(initialData?.TotalPagado ?? 0);
+    setDescripcion(initialData?.descripcion ?? "");
     setDetalles(rowsFromReserva(initialData, prefillDetalle));
     setMostrarMasDatosInquilino(false);
     setRowConflicts({});
@@ -283,6 +285,7 @@ const ReservaForm: React.FC<ReservaFormProps> = ({ initialData, prefillDetalle, 
       seña,
       TotalAPagar: totalAPagar,
       TotalPagado: totalPagado,
+      descripcion: descripcion.trim(),
       detalleReserva: detalles.map(d => ({
         detalleReservaId: d.detalleReservaId,
         reservaId: initialData?.reservaId,
@@ -449,6 +452,19 @@ const ReservaForm: React.FC<ReservaFormProps> = ({ initialData, prefillDetalle, 
             className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
           />
         </div>
+      </div>
+
+      <div className="mb-4">
+        <label className="block text-sm font-medium text-gray-700 mb-1">
+          Descripción
+        </label>
+        <textarea
+          value={descripcion}
+          onChange={e => setDescripcion(e.target.value)}
+          placeholder='Comentario sobre la reserva, ej: "Vienen en moto y van a llegar a la noche"'
+          rows={2}
+          className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-indigo-500"
+        />
       </div>
 
       <div className={`mb-4 p-3 rounded-md border ${debe > 0 ? "bg-amber-50 border-amber-200" : "bg-green-50 border-green-200"}`}>

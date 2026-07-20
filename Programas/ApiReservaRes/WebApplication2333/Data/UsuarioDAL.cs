@@ -69,7 +69,7 @@ namespace ApiReservaRes.Data
 
         }
 
-        public static Usuario validarUsuario(String nombreUsuario, String contrasena)
+        public static Usuario validarUsuario(String email, String contrasena)
         {
 
             Usuario objeto = new Usuario();
@@ -79,9 +79,9 @@ namespace ApiReservaRes.Data
                 SqlCommand cmd = new SqlCommand("spUsuarioPassSel", oConexion);
                 cmd.CommandType = CommandType.StoredProcedure;
                 ;
-                if (nombreUsuario != null)
+                if (email != null)
                 {
-                    cmd.Parameters.AddWithValue("@Nombre", nombreUsuario);
+                    cmd.Parameters.AddWithValue("@Nombre", email);
                 }
                 if (contrasena != null)
                 {

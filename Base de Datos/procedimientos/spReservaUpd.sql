@@ -6,7 +6,8 @@ ALTER procedure spReservaUpd
 	@Sena           decimal(18,2),
 	@TotalAPagar    decimal(18,2),
 	@TotalPagado    decimal(18,2),
-	@EstadoReservaID int
+	@EstadoReservaID int,
+	@Descripcion  nvarchar(max) = null
 as
 	declare @intError int
 	begin transaction
@@ -17,7 +18,8 @@ as
 			Sena = @Sena,
 			TotalAPagar = @TotalAPagar,
 			TotalPagado = @TotalPagado,
-			EstadoReservaID = @EstadoReservaID
+			EstadoReservaID = @EstadoReservaID,
+			Descripcion = @Descripcion
 		where ReservaID = @ReservaID
 
       set @intError = @@Error

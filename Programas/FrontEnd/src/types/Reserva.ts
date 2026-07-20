@@ -13,4 +13,5 @@ export interface Reserva {
   TotalAPagar: number;
   TotalPagado: number;
   FechaRegistro?: string;
+  descripcion?: string;
 }

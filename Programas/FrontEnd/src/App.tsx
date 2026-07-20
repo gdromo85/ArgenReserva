@@ -3,6 +3,7 @@ import { ComplejosProvider } from "./context/ComplejosContext";
 import { UnidadesAlojamientoProvider } from "./context/UnidadesAlojamientoContext";
 import { ReservasProvider } from "./context/ReservasContext";
 import { AuthProvider } from "./context/AuthContext";
+import ProtectedRoute from "./components/ProtectedRoute";
 import Panel from "./layout/Panel";
 import Login from "./layout/Login";
 import Complejos from "./pages/Complejos";
@@ -17,7 +18,14 @@ const App = () => {
           <ReservasProvider>
             <Routes>
               <Route path="/" element={<Login />} />
-              <Route path="/panel" element={<Panel />}>
+              <Route
+                path="/panel"
+                element={
+                  <ProtectedRoute>
+                    <Panel />
+                  </ProtectedRoute>
+                }
+              >
                 <Route index element={null} />
                 <Route path="complejos" element={<Complejos />} />
                 <Route path="complejos/:complejoId/unidades" element={<UnidadesAlojamiento />} />

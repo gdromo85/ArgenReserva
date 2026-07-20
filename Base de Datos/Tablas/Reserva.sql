@@ -6,6 +6,6 @@ CREATE TABLE Reserva (
     TotalAPagar     DECIMAL(18,2) NOT NULL DEFAULT 0,
     TotalPagado     DECIMAL(18,2) NOT NULL DEFAULT 0,
 	EstadoReservaID INT NOT NULL DEFAULT 1,
+	Descripcion NVARCHAR(MAX),
 	FechaRegistro   DATETIME2 NOT NULL DEFAULT SYSDATETIME()
 );
-   

@@ -1,17 +1,16 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import { Complejo } from "../types/Complejo";
-import { getComplejos, createComplejo, updateComplejo, deleteComplejo, getComplejoByUsuario } from "../api/complejos";
+import { getComplejoByUsuario, createComplejo, updateComplejo, deleteComplejo } from "../api/complejos";
+import { useAuth } from "./AuthContext";
 
 interface ComplejosContextType {
   complejos: Complejo[];
-  complejosXUsuario: Complejo[];
   loading: boolean;
   error: string | null;
   fetchComplejos: () => Promise<void>;
   addComplejo: (complejo: Complejo) => Promise<void>;
   editComplejo: (id: number, complejo: Complejo) => Promise<void>;
   removeComplejo: (id: number) => Promise<void>;
-  fetchComplejosXUsuario: (usuario: number) => Promise<void>;
 }
 
 const ComplejosContext = createContext<ComplejosContextType | undefined>(undefined);
@@ -21,31 +20,18 @@ interface ComplejosProviderProps {
 }
 
 export const ComplejosProvider: React.FC<ComplejosProviderProps> = ({ children }) => {
+  const { usuario, loading: authLoading } = useAuth();
   const [complejos, setComplejos] = useState<Complejo[]>([]);
-  const [complejosXUsuario, setComplejosXUsuario] = useState<Complejo[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
   const fetchComplejos = async () => {
+    if (!usuario) return;
     setLoading(true);
     setError(null);
     try {
-      const data = await getComplejos();
+      const data = await getComplejoByUsuario(usuario.usuarioID);
       setComplejos(data);
-    } catch (err) {
-      setError("Error al cargar los complejos");
-      console.error(err);
-    } finally {
-      setLoading(false);
-    }
-  };
-
-  const fetchComplejosXUsuario = async (usuario: number) => {
-    setLoading(true);
-    setError(null);
-    try {
-      const data = await getComplejoByUsuario(usuario);
-      setComplejosXUsuario(data);
     } catch (err) {
       setError("Error al cargar los complejos");
       console.error(err);
@@ -100,20 +86,23 @@ export const ComplejosProvider: React.FC<ComplejosProviderProps> = ({ children }
   };
 
   useEffect(() => {
-    fetchComplejos();
-  }, []);
+    if (authLoading) return;
+    if (usuario) {
+      fetchComplejos();
+    } else {
+      setComplejos([]);
+    }
+  }, [usuario, authLoading]);
 
   return (
     <ComplejosContext.Provider value={{
       complejos,
-      complejosXUsuario,
       loading,
       error,
       fetchComplejos,
       addComplejo,
       editComplejo,
-      removeComplejo,
-      fetchComplejosXUsuario
+      removeComplejo
     }}>
       {children}
     </ComplejosContext.Provider>

@@ -38,7 +38,7 @@ namespace ApiReservaRes.Controllers
 
             try
             {
-                var usuarios = UsuarioDAL.validarUsuario(request.nombre, request.passwordHash);
+                var usuarios = UsuarioDAL.validarUsuario(request.email, request.passwordHash);
                 return Ok(usuarios);
             }
             catch (Exception ex)

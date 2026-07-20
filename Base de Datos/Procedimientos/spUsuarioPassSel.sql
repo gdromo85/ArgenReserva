@@ -1,5 +1,5 @@
 
---spUsuarioPassSel 'Juan','123', 7
+--spUsuarioPassSel 'Prueba@Prueba','prueba', 7
 alter procedure spUsuarioPassSel
   @Nombre			varchar (128) = null,
   @PasswordHash				varchar (128) = null,

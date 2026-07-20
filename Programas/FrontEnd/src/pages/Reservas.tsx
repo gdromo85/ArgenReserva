@@ -12,6 +12,14 @@ import DisponibilidadModal from "../components/DisponibilidadModal";
 import CalendarioModal from "../components/CalendarioModal";
 import Modal from "../components/Modal";
 
+const hoyISO = (): string => new Date().toISOString().slice(0, 10);
+
+const sumarUnMesISO = (fechaISO: string): string => {
+  const [y, m, d] = fechaISO.split("-").map(Number);
+  const fecha = new Date(y, m, d);
+  return `${fecha.getFullYear()}-${String(fecha.getMonth() + 1).padStart(2, "0")}-${String(fecha.getDate()).padStart(2, "0")}`;
+};
+
 const Reservas: React.FC = () => {
   const { reservas, loading, error, addReserva, editReserva, removeReserva } = useReservas();
   const { complejos } = useComplejos();
@@ -26,8 +34,8 @@ const Reservas: React.FC = () => {
   const [filtroComplejoId, setFiltroComplejoId] = useState<number | "">("");
   const [filtroUnidadId, setFiltroUnidadId] = useState<number | "">("");
   const [filtroEstadoId, setFiltroEstadoId] = useState<number | "">("");
-  const [filtroFechaDesde, setFiltroFechaDesde] = useState("");
-  const [filtroFechaHasta, setFiltroFechaHasta] = useState("");
+  const [filtroFechaDesde, setFiltroFechaDesde] = useState(() => hoyISO());
+  const [filtroFechaHasta, setFiltroFechaHasta] = useState(() => sumarUnMesISO(hoyISO()));
   const [unidadesFiltro, setUnidadesFiltro] = useState<UnidadAlojamiento[]>([]);
   const [estadosFiltro, setEstadosFiltro] = useState<EstadoReserva[]>([]);
 
@@ -57,26 +65,33 @@ const Reservas: React.FC = () => {
     setFiltroFechaHasta("");
   };
 
+  const primeraFecha = (reserva: Reserva): string => {
+    const fechas = (reserva.detalleReserva || []).map(d => d.fechaDesde?.slice(0, 10)).filter(Boolean).sort();
+    return fechas[0] ?? "9999-99-99";
+  };
+
   const reservasFiltradas = useMemo(() => {
-    if (!hayFiltrosActivos) return reservas;
+    const filtradas = !hayFiltrosActivos
+      ? reservas
+      : reservas.filter(reserva => {
+          if (filtroEstadoId && reserva.estadoReserva?.estadoReservaId !== filtroEstadoId) return false;
 
-    return reservas.filter(reserva => {
-      if (filtroEstadoId && reserva.estadoReserva?.estadoReservaId !== filtroEstadoId) return false;
+          if (!filtroComplejoId && !filtroUnidadId && !filtroFechaDesde && !filtroFechaHasta) return true;
 
-      if (!filtroComplejoId && !filtroUnidadId && !filtroFechaDesde && !filtroFechaHasta) return true;
+          return (reserva.detalleReserva || []).some(d => {
+            if (filtroUnidadId && d.unidadAlojamiento?.unidadAlojamientoId !== filtroUnidadId) return false;
+            if (!filtroUnidadId && filtroComplejoId && d.unidadAlojamiento?.complejoId !== filtroComplejoId) return false;
 
-      return (reserva.detalleReserva || []).some(d => {
-        if (filtroUnidadId && d.unidadAlojamiento?.unidadAlojamientoId !== filtroUnidadId) return false;
-        if (!filtroUnidadId && filtroComplejoId && d.unidadAlojamiento?.complejoId !== filtroComplejoId) return false;
+            const desde = d.fechaDesde?.slice(0, 10);
+            const hasta = d.fechaHasta?.slice(0, 10);
+            if (filtroFechaDesde && hasta && hasta < filtroFechaDesde) return false;
+            if (filtroFechaHasta && desde && desde > filtroFechaHasta) return false;
 
-        const desde = d.fechaDesde?.slice(0, 10);
-        const hasta = d.fechaHasta?.slice(0, 10);
-        if (filtroFechaDesde && hasta && hasta < filtroFechaDesde) return false;
-        if (filtroFechaHasta && desde && desde > filtroFechaHasta) return false;
+            return true;
+          });
+        });
 
-        return true;
-      });
-    });
+    return [...filtradas].sort((a, b) => primeraFecha(a).localeCompare(primeraFecha(b)));
   }, [reservas, hayFiltrosActivos, filtroComplejoId, filtroUnidadId, filtroEstadoId, filtroFechaDesde, filtroFechaHasta]);
 
   const handleCreate = () => {

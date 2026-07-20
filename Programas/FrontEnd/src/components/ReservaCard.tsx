@@ -114,6 +114,15 @@ const ReservaCard: React.FC<ReservaCardProps> = ({ reserva, onEdit, onDelete }) 
         <div className={`font-mono text-sm font-medium ${debe > 0 ? "text-amber-700" : "text-green-700"}`}>
           {debe > 0 ? `Debe ${formatMoneda(debe)}` : "Sin saldo pendiente"}
         </div>
+
+        {reserva.descripcion && (
+          <div className="flex items-start gap-2 pt-1">
+            <svg className="h-5 w-5 text-gray-400 mt-0.5 shrink-0" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+              <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-4 4v-4z" />
+            </svg>
+            <span className="text-sm text-gray-600 italic">{reserva.descripcion}</span>
+          </div>
+        )}
       </div>
     </div>
   );

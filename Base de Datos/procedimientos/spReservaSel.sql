@@ -11,6 +11,7 @@ as
 		r.TotalAPagar,
 		r.TotalPagado,
 		r.FechaRegistro,
+		r.Descripcion,
 
 		i.InquilinoID,
 		i.nombre        as Inquilino_Nombre,
