@@ -36,7 +36,7 @@ as
 
 		if not exists (select 1 
 					from Usuarios u (nolock)
-					where u.Nombre  = @Nombre
+					where u.Email  = @Nombre
 					 and  u.PasswordHash = @PasswordHash )
 					  begin
 			RAISERROR ('La contraseña ingresada no es valida, vuelva a intentar', 16,1)
@@ -51,7 +51,7 @@ as
  Select u.*
 	from Usuarios u (nolock)
 
-	  where u.Nombre = @Nombre and PasswordHash = @PasswordHash
+	  where u.Email = @Nombre and PasswordHash = @PasswordHash
 
 	set @intError = @@Error
 	if (@intError <> 0) goto onError

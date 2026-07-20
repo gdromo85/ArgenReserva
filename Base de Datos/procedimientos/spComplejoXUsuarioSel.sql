@@ -1,10 +1,10 @@
--- spComplejoXUsuarioSel    1
+-- spComplejoXUsuarioSel    2
 create procedure spComplejoXUsuarioSel
   @UsuarioID int = null
   
 as
 	declare @intError int
-	begin transaction
+
 	
 	
 	Select 
@@ -25,6 +25,6 @@ as
 	return @intError
 
 onError:
-  if @@TranCount > 0 rollback transaction
+
   return @intError
 go
