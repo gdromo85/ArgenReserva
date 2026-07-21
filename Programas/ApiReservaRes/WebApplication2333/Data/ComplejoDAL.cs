@@ -117,7 +117,7 @@ namespace ApiReservaRes.Data
         }
 
 
-        public static Complejos agregarComplejo(Complejos objeto)
+        public static Complejos agregarComplejo(Complejos objeto, int usuarioId)
         {
 
             using (SqlConnection oConexion = new SqlConnection(Conexion.obtenerRutaConexion()))
@@ -140,6 +140,11 @@ namespace ApiReservaRes.Data
                 if (objeto.Descripcion != "")
                 {
                     cmd.Parameters.Add(new SqlParameter("@Descripcion", objeto.Descripcion));
+                }
+
+                if (usuarioId > 0)
+                {
+                    cmd.Parameters.Add(new SqlParameter("@UsuarioId", usuarioId));
                 }
 
                 cmd.Connection = oConexion;
@@ -214,7 +219,7 @@ namespace ApiReservaRes.Data
             }
         }
 
-        public static Boolean eliminarComplejo(int complejoId)
+        public static Boolean eliminarComplejo(int complejoId, int usuarioId)
         {
             //string respuesta = string.Empty;
           
@@ -228,6 +233,11 @@ namespace ApiReservaRes.Data
                 if (complejoId > 0)
                 {
                     cmd.Parameters.AddWithValue("@ComplejoID", complejoId);
+                }
+
+                if (usuarioId > 0)
+                {
+                    cmd.Parameters.AddWithValue("@UsuarioId", usuarioId);
                 }
 
 

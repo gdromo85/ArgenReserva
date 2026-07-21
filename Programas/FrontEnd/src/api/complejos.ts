@@ -14,9 +14,8 @@ export const getComplejoById = async (id: number): Promise<Complejo> => {
   return response.data;
 };
 
-export const createComplejo = async (complejo: Complejo): Promise<Complejo> => {
-  const response = await axios.post<Complejo>(`${getApiUrl()}api/complejo/Agregar`, complejo);
-  console.log("🚀 ~ createComplejo ~ response:", response)
+export const createComplejo = async (complejo: Complejo, usuarioId: number): Promise<Complejo> => {
+  const response = await axios.post<Complejo>(`${getApiUrl()}api/complejo/Agregar/${usuarioId}`, complejo);
   return response.data;
 };
 
@@ -25,7 +24,6 @@ export const updateComplejo = async (id: number, complejo: Complejo): Promise<Co
   return response.data;
 };
 
-export const deleteComplejo = async (id: number): Promise<void> => {
-  //api/Complejo/Eliminar/{complejoId}
-  await axios.get(`${getApiUrl()}api/complejo/Eliminar/${id}`);
+export const deleteComplejo = async (id: number, usuarioId: number): Promise<void> => {
+  await axios.get(`${getApiUrl()}api/complejo/Eliminar/${id}/${usuarioId}`);
 };

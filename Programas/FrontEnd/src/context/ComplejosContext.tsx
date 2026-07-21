@@ -41,10 +41,11 @@ export const ComplejosProvider: React.FC<ComplejosProviderProps> = ({ children }
   };
 
   const addComplejo = async (complejo: Complejo) => {
+    if (!usuario) return;
     setLoading(true);
     setError(null);
     try {
-      const nuevo = await createComplejo(complejo);
+      const nuevo = await createComplejo(complejo, usuario.usuarioID);
       setComplejos(prev => [...prev, nuevo]);
     } catch (err) {
       setError("Error al crear el complejo");
@@ -71,10 +72,11 @@ export const ComplejosProvider: React.FC<ComplejosProviderProps> = ({ children }
   };
 
   const removeComplejo = async (id: number) => {
+    if (!usuario) return;
     setLoading(true);
     setError(null);
     try {
-      await deleteComplejo(id);
+      await deleteComplejo(id, usuario.usuarioID);
       setComplejos(prev => prev.filter(c => c.ComplejoID !== id));
     } catch (err) {
       setError("Error al eliminar el complejo");

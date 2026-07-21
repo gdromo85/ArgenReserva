@@ -23,24 +23,7 @@ namespace ApiReservaRes.Controllers
 {
     public class ComplejosController : ApiController
     {
-        [HttpPost]
-        [Route("api/complejo/mensaje-entrada")]
-        public async Task<int> MensajeEntrada([FromBody] Complejos item)
-        //public string Get(int id)
-        {
-            //return "value: " + id;
-            try
-            {
-                return 1;
-
-
-            }
-            catch (Exception ex)
-            {
-                //return ex.Message;
-                throw WebServiceUtils.generarHTTPException(ex.Message);
-            }
-        }
+       
 
         [HttpGet]
         [Route("api/complejo/listado")]
@@ -58,19 +41,17 @@ namespace ApiReservaRes.Controllers
             }
         }
 
+
         [HttpPost]
-        [Route("api/Complejo/Agregar")]
-        public Complejos crearComplejo([FromBody] Complejos complejo)
+        [Route("api/Complejo/Agregar/{usuarioId}")]
+        public Complejos crearComplejo(int usuarioId, [FromBody] Complejos complejo)
         {
             if (complejo == null)
             {
-                return  null;
-               
+                return null;
             }
 
-            return ComplejoDAL.agregarComplejo(complejo);
-           
-         
+            return ComplejoDAL.agregarComplejo(complejo, usuarioId);
         }
 
         [HttpPost]
@@ -88,13 +69,12 @@ namespace ApiReservaRes.Controllers
         }
 
         [HttpGet]
-        [Route("api/Complejo/eliminar/{complejoId}")]
-        public IHttpActionResult EliminarComplejo(int complejoId)
+        [Route("api/Complejo/eliminar/{complejoId}/{usuarioId}")]
+        public IHttpActionResult EliminarComplejo(int complejoId, int usuarioId)
         {
-
             try
             {
-                Boolean ban = ComplejoDAL.eliminarComplejo(complejoId);
+                Boolean ban = ComplejoDAL.eliminarComplejo(complejoId, usuarioId);
                 return Ok(ban);
             }
             catch (Exception ex)

@@ -23,13 +23,15 @@ namespace ApiReservaRes.Controllers
 {
     public class ReservaController : ApiController
     {
+       
+
         [HttpGet]
-        [Route("api/reserva/listado")]
-        public IHttpActionResult traerReservas()
+        [Route("api/reserva/traerReservaXUsuario/{usuarioId}")]
+        public IHttpActionResult traerReservasXUsuario(int usuarioId)
         {
             try
             {
-                var reservas = ReservaDAL.TraerListadoReserva();
+                var reservas = ReservaDAL.TraerListadoReservaXUsuario(usuarioId);
                 return Ok(reservas);
             }
             catch (Exception ex)

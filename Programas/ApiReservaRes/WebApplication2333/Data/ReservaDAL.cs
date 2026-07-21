@@ -12,7 +12,49 @@ namespace ApiReservaRes.Data
 {
     public class ReservaDAL
     {
-        public static List<Reserva> TraerListadoReserva()
+        //public static List<Reserva> TraerListadoReserva()
+        //{
+        //    var listObjeto = new List<Reserva>();
+
+        //    using (SqlConnection oConexion = new SqlConnection(Conexion.obtenerRutaConexion()))
+        //    {
+        //        SqlCommand cmd = new SqlCommand("spReservaSel", oConexion);
+        //        cmd.CommandType = CommandType.StoredProcedure;
+        //        cmd.Connection = oConexion;
+
+        //        try
+        //        {
+        //            oConexion.Open();
+        //            using (SqlDataReader dr = cmd.ExecuteReader())
+        //            {
+        //                while (dr.Read())
+        //                {
+        //                    var reserva = mapearReserva(dr);
+        //                    listObjeto.Add(reserva);
+        //                }
+        //            }
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            Console.WriteLine(ex);
+        //            throw ex;
+        //        }
+        //        finally
+        //        {
+        //            oConexion.Close();
+        //        }
+        //    }
+
+        //    // Los detalles siguen aparte porque son una relación 1-a-muchos (no entra en un solo SELECT plano)
+        //    foreach (var reserva in listObjeto)
+        //    {
+        //        reserva.detalleReserva = DetalleReservaDAL.traerDetallesPorReserva(reserva.reservaId);
+        //    }
+
+        //    return listObjeto;
+        //}
+
+        public static List<Reserva> TraerListadoReservaXUsuario(int usuarioId)
         {
             var listObjeto = new List<Reserva>();
 
@@ -20,6 +62,8 @@ namespace ApiReservaRes.Data
             {
                 SqlCommand cmd = new SqlCommand("spReservaSel", oConexion);
                 cmd.CommandType = CommandType.StoredProcedure;
+              
+                cmd.Parameters.Add(new SqlParameter("@UsuarioID", usuarioId));
                 cmd.Connection = oConexion;
 
                 try
@@ -29,15 +73,9 @@ namespace ApiReservaRes.Data
                     {
                         while (dr.Read())
                         {
-                            var reserva = mapearReserva(dr);
-                            listObjeto.Add(reserva);
+                            listObjeto.Add(mapearReserva(dr));
                         }
                     }
-                }
-                catch (Exception ex)
-                {
-                    Console.WriteLine(ex);
-                    throw ex;
                 }
                 finally
                 {
@@ -45,7 +83,6 @@ namespace ApiReservaRes.Data
                 }
             }
 
-            // Los detalles siguen aparte porque son una relación 1-a-muchos (no entra en un solo SELECT plano)
             foreach (var reserva in listObjeto)
             {
                 reserva.detalleReserva = DetalleReservaDAL.traerDetallesPorReserva(reserva.reservaId);

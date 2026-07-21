@@ -1,6 +1,7 @@
--- spReservaSel
+-- spReservaSel null, 1
 ALTER procedure spReservaSel
-   @ReservaID int = null
+   @ReservaID int = null,
+   @UsuarioID int = null
 as
 	declare @intError int
 	begin transaction
@@ -32,7 +33,11 @@ as
 		inner join Inquilino i on i.InquilinoID = r.InquilinoID
 		inner join TipoReserva tr on tr.TipoReservaID = r.TipoReservaID
 		inner join EstadoReserva er on er.EstadoReservaId = r.EstadoReservaID
-	where r.ReservaID = isnull(@ReservaID, r.ReservaID)
+
+		inner join detalleReserva dr on dr.ReservaID = r.ReservaID
+		inner join UnidadAlojamiento a on a.UnidadAlojamientoId = dr.UnidadAlojamientoID
+		inner join UsuarioComplejos c on c.ComplejoID = a.ComplejoId
+	where r.ReservaID = isnull(@ReservaID, r.ReservaID) and c.UsuarioID  = isnull(@UsuarioID,c.UsuarioID)
 	order by r.ReservaID desc
 
     set @intError = @@Error

@@ -1,6 +1,7 @@
 import React, { createContext, useContext, useState, useEffect, ReactNode } from "react";
 import { Reserva } from "../types/Reserva";
-import { getReservas, createReserva, updateReserva, deleteReserva } from "../api/reservas";
+import { getReservasXUsuario, createReserva, updateReserva, deleteReserva } from "../api/reservas";
+import { useAuth } from "./AuthContext";
 
 interface ReservasContextType {
   reservas: Reserva[];
@@ -19,15 +20,17 @@ interface ReservasProviderProps {
 }
 
 export const ReservasProvider: React.FC<ReservasProviderProps> = ({ children }) => {
+  const { usuario, loading: authLoading } = useAuth();
   const [reservas, setReservas] = useState<Reserva[]>([]);
   const [loading, setLoading] = useState<boolean>(false);
   const [error, setError] = useState<string | null>(null);
 
   const fetchReservas = async () => {
+    if (!usuario) return;
     setLoading(true);
     setError(null);
     try {
-      const data = await getReservas();
+      const data = await getReservasXUsuario(usuario.usuarioID);
       setReservas(data);
     } catch (err) {
       setError("Error al cargar las reservas");
@@ -83,8 +86,13 @@ export const ReservasProvider: React.FC<ReservasProviderProps> = ({ children }) 
   };
 
   useEffect(() => {
-    fetchReservas();
-  }, []);
+    if (authLoading) return;
+    if (usuario) {
+      fetchReservas();
+    } else {
+      setReservas([]);
+    }
+  }, [usuario, authLoading]);
 
   return (
     <ReservasContext.Provider value={{

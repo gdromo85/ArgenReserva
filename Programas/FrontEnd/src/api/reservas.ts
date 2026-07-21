@@ -2,8 +2,8 @@ import axios from "axios";
 import { getApiUrl } from "../utils/api";
 import { Reserva } from "../types/Reserva";
 
-export const getReservas = async (): Promise<Reserva[]> => {
-  const response = await axios.get<Reserva[]>(`${getApiUrl()}api/reserva/listado`);
+export const getReservasXUsuario = async (usuarioId: number): Promise<Reserva[]> => {
+  const response = await axios.get<Reserva[]>(`${getApiUrl()}api/reserva/traerReservaXUsuario/${usuarioId}`);
   return response.data;
 };
 
