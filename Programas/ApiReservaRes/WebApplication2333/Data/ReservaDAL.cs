@@ -12,57 +12,17 @@ namespace ApiReservaRes.Data
 {
     public class ReservaDAL
     {
-        //public static List<Reserva> TraerListadoReserva()
-        //{
-        //    var listObjeto = new List<Reserva>();
-
-        //    using (SqlConnection oConexion = new SqlConnection(Conexion.obtenerRutaConexion()))
-        //    {
-        //        SqlCommand cmd = new SqlCommand("spReservaSel", oConexion);
-        //        cmd.CommandType = CommandType.StoredProcedure;
-        //        cmd.Connection = oConexion;
-
-        //        try
-        //        {
-        //            oConexion.Open();
-        //            using (SqlDataReader dr = cmd.ExecuteReader())
-        //            {
-        //                while (dr.Read())
-        //                {
-        //                    var reserva = mapearReserva(dr);
-        //                    listObjeto.Add(reserva);
-        //                }
-        //            }
-        //        }
-        //        catch (Exception ex)
-        //        {
-        //            Console.WriteLine(ex);
-        //            throw ex;
-        //        }
-        //        finally
-        //        {
-        //            oConexion.Close();
-        //        }
-        //    }
-
-        //    // Los detalles siguen aparte porque son una relación 1-a-muchos (no entra en un solo SELECT plano)
-        //    foreach (var reserva in listObjeto)
-        //    {
-        //        reserva.detalleReserva = DetalleReservaDAL.traerDetallesPorReserva(reserva.reservaId);
-        //    }
-
-        //    return listObjeto;
-        //}
 
         public static List<Reserva> TraerListadoReservaXUsuario(int usuarioId)
         {
             var listObjeto = new List<Reserva>();
+            var idsVistos = new HashSet<int>();
 
             using (SqlConnection oConexion = new SqlConnection(Conexion.obtenerRutaConexion()))
             {
                 SqlCommand cmd = new SqlCommand("spReservaSel", oConexion);
                 cmd.CommandType = CommandType.StoredProcedure;
-              
+
                 cmd.Parameters.Add(new SqlParameter("@UsuarioID", usuarioId));
                 cmd.Connection = oConexion;
 
@@ -73,7 +33,11 @@ namespace ApiReservaRes.Data
                     {
                         while (dr.Read())
                         {
-                            listObjeto.Add(mapearReserva(dr));
+                            int reservaId = Convert.ToInt32(dr["ReservaID"]);
+                            if (idsVistos.Add(reservaId)) // true solo la primera vez que aparece ese ReservaID
+                            {
+                                listObjeto.Add(mapearReserva(dr));
+                            }
                         }
                     }
                 }
@@ -177,6 +141,51 @@ namespace ApiReservaRes.Data
             }
         }
 
+        //public static Reserva editarReserva(Reserva objeto)
+        //{
+        //    using (SqlConnection oConexion = new SqlConnection(Conexion.obtenerRutaConexion()))
+        //    {
+        //        SqlCommand cmd = new SqlCommand("spReservaUpd", oConexion);
+        //        cmd.CommandType = CommandType.StoredProcedure;
+
+        //        cmd.Parameters.Add(new SqlParameter("@ReservaID", objeto.reservaId));
+        //        cmd.Parameters.Add(new SqlParameter("@InquilinoID", objeto.inquilino.inquilinoId));
+        //        cmd.Parameters.Add(new SqlParameter("@TipoReservaID", objeto.tipoReserva.tipoReservaId));
+        //        cmd.Parameters.Add(new SqlParameter("@EstadoReservaID", objeto.estadoReserva.estadoReservaId));
+        //        cmd.Parameters.Add(new SqlParameter("@Sena", objeto.seña));
+        //        cmd.Parameters.Add(new SqlParameter("@TotalAPagar", objeto.TotalAPagar));
+        //        cmd.Parameters.Add(new SqlParameter("@TotalPagado", objeto.TotalPagado));
+        //        cmd.Parameters.Add(new SqlParameter("@Descripcion", objeto.descripcion));
+
+        //        cmd.Connection = oConexion;
+
+        //        try
+        //        {
+        //            oConexion.Open();
+        //            cmd.ExecuteNonQuery();
+
+        //            if (objeto.detalleReserva != null)
+        //            {
+        //                foreach (var detalle in objeto.detalleReserva)
+        //                {
+
+        //                    DetalleReservaDAL.editarDetalleReserva(detalle);
+        //                }
+        //            }
+        //            return traerReserva(objeto.reservaId);
+        //        }
+        //        catch (Exception ex)
+        //        {
+        //            throw ex;
+        //        }
+        //        finally
+        //        {
+        //            oConexion.Close();
+        //        }
+        //    }
+        //}
+
+
         public static Reserva editarReserva(Reserva objeto)
         {
             using (SqlConnection oConexion = new SqlConnection(Conexion.obtenerRutaConexion()))
@@ -199,7 +208,6 @@ namespace ApiReservaRes.Data
                 {
                     oConexion.Open();
                     cmd.ExecuteNonQuery();
-                    return traerReserva(objeto.reservaId);
                 }
                 catch (Exception ex)
                 {
@@ -210,8 +218,40 @@ namespace ApiReservaRes.Data
                     oConexion.Close();
                 }
             }
-        }
 
+            // Reconciliar el detalle: editar lo que ya existía, agregar lo nuevo, borrar lo que se saco
+            var detallesActuales = DetalleReservaDAL.traerDetallesPorReserva(objeto.reservaId);
+            var idsEnviados = (objeto.detalleReserva ?? new List<DetalleReserva>())
+                .Where(d => d.detalleReservaId > 0)
+                .Select(d => d.detalleReservaId)
+                .ToHashSet();
+
+            foreach (var actual in detallesActuales)
+            {
+                if (!idsEnviados.Contains(actual.detalleReservaId))
+                {
+                    DetalleReservaDAL.eliminarDetalleReserva(actual.detalleReservaId);
+                }
+            }
+
+            if (objeto.detalleReserva != null)
+            {
+                foreach (var detalle in objeto.detalleReserva)
+                {
+                    detalle.reservaId = objeto.reservaId;
+                    if (detalle.detalleReservaId > 0)
+                    {
+                        DetalleReservaDAL.editarDetalleReserva(detalle);
+                    }
+                    else
+                    {
+                        DetalleReservaDAL.agregarDetalleReserva(detalle);
+                    }
+                }
+            }
+
+            return traerReserva(objeto.reservaId);
+        }
         public static Boolean eliminarReserva(int reservaId)
         {
             using (SqlConnection oConexion = new SqlConnection(Conexion.obtenerRutaConexion()))
@@ -239,7 +279,9 @@ namespace ApiReservaRes.Data
             }
         }
 
-        // Helper interno para mapear la fila del reader a un objeto Reserva parcial
+
+
+            // Helper interno para mapear la fila del reader a un objeto Reserva parcial
         private static Reserva mapearReserva(SqlDataReader dr)
         {
             Reserva objeto = new Reserva();

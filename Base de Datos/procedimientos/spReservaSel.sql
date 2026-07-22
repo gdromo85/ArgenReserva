@@ -1,4 +1,4 @@
--- spReservaSel null, 1
+-- spReservaSel null, 2
 ALTER procedure spReservaSel
    @ReservaID int = null,
    @UsuarioID int = null
